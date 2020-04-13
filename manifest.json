@@ -1,6 +1,6 @@
 {
-    "name" : "惠城帮帮",
-    "appid" : "__UNI__691F441",
+    "name" : "unicloud-router-iview-admin",
+    "appid" : "__UNI__07D6511",
     "description" : "",
     "versionName" : "v1",
     "versionCode" : "100",
@@ -75,8 +75,16 @@
     "h5" : {
         "title" : "惠城帮帮",
         "router" : {
-            "base" : "/hcbb_admin/",
+            "base" : "/unicloud-router-iview-admin/",
             "mode" : "hash"
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        },
+        "devServer" : {
+            "https" : false
         }
     }
 }

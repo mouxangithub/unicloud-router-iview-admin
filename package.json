@@ -1,14 +1,13 @@
 {
   "name": "hcbb_admin",
   "version": "1.0.0",
-  "description": "一个简介的后台管理系统模板",
+  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "uni-simple-router": "^1.5.3",
     "view-design": "^4.2.0-rc.1"
