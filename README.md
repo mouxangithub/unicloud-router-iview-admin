@@ -1,7 +1,7 @@
 # unicloud-router-iview-admin
 一个简洁的后台管理系统模板，基于 uniCloud + iview + uni-simple-router 的后台管理系统
 
-[演示地址:http://xl.hrai.online](http://xl.hrai.online)
+[演示地址:http://mouxangitee.gitee.io/unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router-iview-admin)
 
 # 感谢
 

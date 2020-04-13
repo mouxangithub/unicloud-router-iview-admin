@@ -86,6 +86,6 @@
         "devServer" : {
             "https" : false
         },
-        "domain" : "mouxan.github.io"
+        "domain" : "mouxangitee.gitee.io"
     }
 }
