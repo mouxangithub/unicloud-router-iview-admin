@@ -1,3 +1,13 @@
+<script src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/widget_preview' async defer></script>
+<div id="osc-gitee-widget-tag"></div>
+<style>
+.osc_pro_color {color: #eae9d7 !important;}
+.osc_panel_color {background-color: #2e2f29 !important;}
+.osc_background_color {background-color: #272822 !important;}
+.osc_border_color {border-color: #484a45 !important;}
+.osc_desc_color {color: #eae9d7 !important;}
+.osc_link_color * {color: #747571 !important;}
+</style>
 # unicloud-router-iview-admin
 一个简洁的后台管理系统模板，基于 uniCloud + iview + uni-simple-router 的后台管理系统
 
