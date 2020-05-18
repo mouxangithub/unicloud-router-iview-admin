@@ -208,6 +208,7 @@ export default {
 				const res = await getRoles({ id });
 				this.department = res;
 				this.authTree = getAuthByRouter(routers, this.department.node);
+				this.department.status = res.status ? true : false;
 			} catch (error) {
 				console.error(error);
 			}
@@ -228,6 +229,7 @@ export default {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
 					this.modal_loading = true;
+					this.department.status = this.department.status ? 1 : 0;
 					if (this.method == 'add') {
 						await addRoles(this.department);
 					} else if (this.method == 'edit') {
