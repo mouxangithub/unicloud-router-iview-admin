@@ -2,6 +2,7 @@
 /**
  * 登录函数
  */
+var md5 = require('md5-node');
 const db = uniCloud.database();
 exports.main = async (event, context) => {
 	const collection = db.collection('admin');
@@ -16,7 +17,7 @@ exports.main = async (event, context) => {
 		};
 	}
 	var user = res.data[0];
-	if (user.password != event.password) {
+	if (user.password != md5(event.password)) {
 		return {
 			code: 1001,
 			status: 'error',

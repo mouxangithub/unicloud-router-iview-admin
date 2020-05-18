@@ -10,6 +10,10 @@ export default {
    */
   useI18n: false,
   /**
+   * @description 存储的天数，采用毫秒，默认1天，1秒为1000，即一天为86400000
+   */
+  storageExpires: 86400000,
+  /**
    * @description 默认打开的首页的路由name值，默认为home
    */
   homeName: "index",

@@ -3,26 +3,27 @@ import {
 	setUseInfoStorage,
 	removeUseInfoStorage
 } from '@/libs/util';
+import {
+	login,
+	getAdminUserInfo
+} from '@/api/user'
+import {
+	Message,
+	Notice
+} from 'view-design';
+import router from '@/router'
 
 export default {
 	state: {
-		username: getUseInfoStorage() ? getUseInfoStorage().username : '',
 		userId: getUseInfoStorage() ? getUseInfoStorage()._id : '',
-		avatarImgPath: getUseInfoStorage() ? getUseInfoStorage().avatar : '',
 		UseInfo: getUseInfoStorage() || '',
 		access: getUseInfoStorage() ? getUseInfoStorage().access[0].node : '',
 		hasGetInfo: getUseInfoStorage() ? true : false
 	},
 	mutations: {
-		setAvatar(state, avatarPath) {
-			state.avatarImgPath = avatarPath
-		},
 		setUserId(state, id) {
 			state.userId = id
 			uni.setStorageSync('UserId', id);
-		},
-		setUserName(state, name) {
-			state.username = name
 		},
 		setAccess(state, access) {
 			state.access = access
@@ -33,35 +34,35 @@ export default {
 		},
 		setHasGetInfo(state, status) {
 			state.hasGetInfo = status
-		},
+		}
 	},
 	getters: {},
 	actions: {
 		// 登录
 		handleLogin({
+			dispatch,
 			commit
 		}, {
 			username,
 			password
 		}) {
 			username = username.trim()
-			return new Promise((resolve, rejects) => {
-				uniCloud.callFunction({
-					name: 'login',
-					data: {
-						username,
-						password
-					},
-					success(res) {
-						if (res.result.code == 200) {
-							commit('setUserId', res.result.data)
-							resolve()
-						} else {
-							rejects(res.result.msg)
-						}
-					},
-					fail(res) {
-						rejects(res)
+			return new Promise((resolve, reject) => {
+				login({
+					username,
+					password
+				}).then(async res => {
+					commit('setUserId', res)
+					var res = await dispatch('getUserInfo')
+					if (res) {
+						Notice.success({ title: '登录成功' });
+						router.replace({ name: 'index' });
+						return resolve(true)
+					} else {
+						return Message.error({
+							background: true,
+							content: res
+						})
 					}
 				})
 			})
@@ -78,26 +79,19 @@ export default {
 			state,
 			commit
 		}) {
-			const userId = state.userId;
 			return new Promise((resolve, reject) => {
-				uniCloud.callFunction({
-					name: 'getAdminUserInfo',
-					data: {
-						userId
-					},
-					success(res) {
-						const data = res.result.data[0]
-						commit('setUserInfo', data)
-						commit('setAvatar', data.avatar)
-						commit('setUserName', data.username)
-						commit('setAccess', data.access[0].node)
-						commit('setHasGetInfo', true)
-						resolve(data.access[0].node)
-					},
-					fail(res) {
-						reject(res)
-					}
-				})
+				try {
+					getAdminUserInfo(state.userId).then(res => {
+						commit('setUserInfo', res)
+						commit('setAccess', res.access[0].node)
+						commit('setHasGetInfo', res ? true : false)
+						resolve(res.access[0].node)
+					}).catch(err => {
+						reject(err)
+					})
+				} catch (error) {
+					reject(error)
+				}
 			})
 		}
 	}

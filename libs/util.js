@@ -6,17 +6,31 @@ import {
 import config from '@/config'
 const {
 	title,
-	useI18n
+	useI18n,
+	storageExpires
 } = config
 
 export const setUseInfoStorage = (data) => {
+	var timestamp = Date.parse(new Date()); //当前时间
+	var expiration = timestamp + storageExpires; // 缓存设置时间
+	uni.setStorageSync('useInfoStorageTime', expiration);
 	uni.setStorageSync('UserInfo', data);
 }
 
 export const getUseInfoStorage = () => {
-	const UseInof = uni.getStorageSync('UserInfo');
-	if (UseInof) return UseInof
-	else return false
+	var timestamp = Date.parse(new Date()); //当前时间
+	var expiration = timestamp + storageExpires; // 缓存设置时间
+	var useInfoStorageTime = uni.getStorageSync("useInfoStorageTime");
+	if (useInfoStorageTime) {
+		if (timestamp < useInfoStorageTime) {
+			const UserInfo = uni.getStorageSync('UserInfo');
+			if (UserInfo) {
+				return UserInfo;
+			}
+		}
+	}
+	removeUseInfoStorage()
+	return false
 }
 
 export const removeUseInfoStorage = () => {
@@ -49,11 +63,82 @@ export const getMenuByRouter = (list, access) => {
 			if ((hasChild(item) || (item.meta && item.meta.showAlways)) && showThisMenuEle(item, access)) {
 				obj.children = getMenuByRouter(item.children, access)
 			}
+			if (item.menugroup) obj.menugroup = item.menugroup
 			if (item.meta && item.meta.href) obj.href = item.meta.href
 			if (showThisMenuEle(item, access)) res.push(obj)
 		}
 	})
 	return res
+}
+
+/**
+ * @param {Array} 
+ *         list 通过路由列表得到权限列表
+ *         useraccess，
+ *         checked 是否全选
+ *         expand 是否展开全部
+ * @returns {Array}
+ */
+export const getAuthByRouter = (list, useraccess) => {
+	let auth = []
+	forEach(list, res => {
+		var obj = {
+			expand: true,
+		};
+		// 如果没有子路由并且access存在
+		if (!res.children && res.meta.access) {
+			obj.title = res.meta.title;
+			obj.access = res.meta.access;
+			useraccess ? (obj.checked = arrayEqual(useraccess, res.meta.access)) : false
+		}
+		// 多个子路由
+		else if (res.children && res.children.length > 1) {
+			// 获取下一级子路由信息
+			var childrens = getAuthByRouter(res.children, useraccess)
+			// 如果只有一个配置权限节点则直接替代父级
+			if (childrens.length == 1) {
+				if (childrens[0].access) {
+					obj.title = childrens[0].title
+					obj.access = childrens[0].access
+					childrens[0].children ? (obj.children = getAuthByRouter(childrens[0].children, useraccess)) : null
+					useraccess ? (obj.checked = arrayEqual(useraccess, childrens[0].access)) : false
+				} else obj = null
+			} else {
+				obj.title = res.meta.title
+				if (res.meta.access) {
+					obj.access = res.meta.access
+					useraccess ? (obj.checked = arrayEqual(useraccess, res.meta.access)) : false
+				}
+				if (childrens.length > 1) {
+					obj.children = childrens
+				} else {
+					obj = null
+				}
+			}
+		}
+		// 子路由一个
+		else if (res.children && res.children.length == 1) {
+			const ca = res.children[0].meta.access;
+			const ma = res.meta.access;
+			// 子路由和父级路由权限都存在，显示父级
+			if (ca && ma || !ca && ma) {
+				obj.title = res.meta.title
+				obj.access = res.meta.access
+				res.children ? (obj.children = getAuthByRouter(res.children, useraccess)) : null
+				useraccess ? (obj.checked = arrayEqual(useraccess, ma)) : false
+			}
+			// 子路由权限存在，父级不存在，显示子路由，取代父级
+			else if (ca && !ma) {
+				obj.title = res.children[0].meta.title;
+				obj.access = res.children[0].meta.access;
+				res.children[0].children ? (obj.children = getAuthByRouter(res.children[0].children, useraccess)) : null
+				useraccess ? (obj.checked = arrayEqual(useraccess, ca)) : false
+			} else obj = null
+		} else obj = null;
+		// 组合数组
+		obj ? auth.push(obj) : null;
+	})
+	return auth
 }
 
 /**
@@ -356,13 +441,31 @@ export const routeEqual = (route1, route2) => {
 }
 
 /**
+ * 判断两个数组是否存在相同的值
+ */
+export const arrayEqual = (arr1, arr2) => {
+	var arr3 = new Array();
+	var c = arr2.toString();
+	for (var i = 0; i < arr1.length; i++) {
+		if (c.indexOf(arr1[i].toString()) > -1) {
+			for (var j = 0; j < arr2.length; j++) {
+				if (arr1[i] == arr2[j]) {
+					arr3.push(arr1[i])
+				}
+			}
+		}
+	}
+	return arr3.length > 0 ? true : false
+}
+
+/**
  * 判断打开的标签列表里是否已存在这个新添加的路由对象
  */
 export const routeHasExist = (tagNavList, routeItem) => {
 	let len = tagNavList.length
 	let res = false
 	doCustomTimes(len, (index) => {
-	    // console.log(tagNavList[index].name)
+		// console.log(tagNavList[index].name)
 		if (routeEqual(tagNavList[index], routeItem)) res = true
 	})
 	return res

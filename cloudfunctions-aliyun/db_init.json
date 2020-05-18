@@ -6,23 +6,36 @@
 {
 	"admin": {
 		"data": [{
-			"avatar": "http://b-ssl.duitang.com/uploads/item/201706/30/20170630215315_tcLNV.thumb.224_0.jpeg",
-			"roles": "5e8c87cb7b807c004d590a5c", //关联roles表id
-			"password": "admin",
+			"password": "53977771cf94aa861c2a25b845e99f57",
+			"roles_id": "5ec1f715f8eeb6004dc291f6",
+			"status": 1,
+			"username": "mouxan"
+		}, {
+			"password": "21232f297a57a5a743894a0e4a801fc3",
+			"roles_id": "5ec1f715f8eeb6004dc291f6",
 			"status": 1,
 			"username": "admin"
 		}]
 	},
 	"roles": {
 		"data": [{
-			"_id": "5e8c87cb7b807c004d590a5c",
+			"_id": "5ec1f715f8eeb6004dc291f6",
 			"name": "超级权限",
 			"node": [
 				"index",
-				"user"
+				"user",
+				"roles"
 			],
-			"pop_num": 1,
-			"status": 1
+			"status": true
+		}, {
+			"_id": "5ec1f715f8eeb6004dc291f6",
+			"name": "技术部",
+			"node": [
+				"index",
+				"user",
+				"roles"
+			],
+			"status": true
 		}]
 	}
 }

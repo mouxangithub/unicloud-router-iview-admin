@@ -4,8 +4,8 @@
 			<side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
 				<!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
 				<div class="logo-con">
-					<img v-show="!collapsed" :src="logo" />
-					<img v-show="collapsed" :src="logo" />
+					<a v-show="!collapsed" href="./" style="font-size: 35px;" >惠城帮帮</a>
+					<a v-show="collapsed" href="./" style="font-size: 30px;">惠</a>
 				</div>
 			</side-menu>
 		</Sider>
@@ -13,7 +13,7 @@
 			<Header class="header-con">
 				<header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
 					<user :message-unread-count="unreadCount" :user-avatar="userAvatar" />
-					<fullscreen v-model="isFullscreen" style="margin-right: 10px;" />
+					<fullscreen v-model="isFullscreen" style="margin-right: 10px;margin-top: 5px;" />
 					<!-- <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local" />
 					<error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader" :has-read="hasReadErrorPage" :count="errorCount"></error-store> -->
 				</header-bar>
@@ -22,9 +22,7 @@
 				<Layout class="main-layout-con">
 					<div class="tag-nav-wrapper"><tags-nav :value="$route" @input="handleClick" :list="tagNavList" @on-close="handleCloseTag" /></div>
 					<Content class="content-wrapper">
-						<Card>
-							<keep-alive :include="cacheList"><router-view /></keep-alive>
-						</Card>
+						<keep-alive :include="cacheList"><router-view /></keep-alive>
 						<ABackTop :height="100" :bottom="80" :right="50" container=".content-wrapper"></ABackTop>
 					</Content>
 				</Layout>
@@ -41,7 +39,6 @@ import Fullscreen from '../fullscreen/fullscreen';
 import TagsNav from '../tags-nav/tags-nav';
 // import Language from '../language/language.vue';
 // import ErrorStore from '../error-store/error-store';
-import logo from '@/assets/images/logp.png';
 import './index.less';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 import { getNewTagList, routeEqual } from '@/libs/util';
@@ -58,7 +55,6 @@ export default {
 	data() {
 		return {
 			collapsed: false,
-			logo,
 			isFullscreen: false
 		};
 	},
@@ -70,7 +66,7 @@ export default {
 			return this.$store.state.app.tagRouter;
 		},
 		userAvatar() {
-			return this.$store.state.user.avatarImgPath;
+			return this.$store.state.user.UseInfo.username.substring(0,1).toUpperCase();
 		},
 		cacheList() {
 			const list = ['ParentView', ...(this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : [])];

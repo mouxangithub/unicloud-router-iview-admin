@@ -1,13 +1,12 @@
 <template>
 	<div class="user-avatar-dropdown">
 		<Dropdown @on-click="handleClick">
-			<Badge :dot="!!messageUnreadCount"><Avatar :src="userAvatar" /></Badge>
+			<Badge :dot="!!messageUnreadCount">
+				<Avatar>{{ userAvatar }}</Avatar>
+			</Badge>
 			<Icon :size="18" type="md-arrow-dropdown"></Icon>
 			<DropdownMenu slot="list">
-				<!-- <DropdownItem name="message">
-					消息中心
-					<Badge style="margin-left: 10px" :count="messageUnreadCount"></Badge>
-				</DropdownItem> -->
+				<DropdownItem name="user">个人中心</DropdownItem>
 				<DropdownItem name="logout">退出登录</DropdownItem>
 			</DropdownMenu>
 		</Dropdown>
@@ -42,9 +41,9 @@ export default {
 				});
 			});
 		},
-		message() {
+		user() {
 			this.$router.push({
-				name: 'message_page'
+				name: 'user'
 			});
 		},
 		handleClick(name) {
@@ -52,8 +51,8 @@ export default {
 				case 'logout':
 					this.logout();
 					break;
-				case 'message':
-					this.message();
+				case 'user':
+					this.user();
 					break;
 			}
 		}

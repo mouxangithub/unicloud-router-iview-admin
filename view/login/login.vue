@@ -48,29 +48,13 @@ export default {
 	methods: {
 		...mapActions(['handleLogin', 'getUserInfo']),
 		login: function(formName) {
-			this.$refs[formName].validate(valid => {
+			this.$refs[formName].validate(async valid => {
 				if (valid) {
 					this.loading = true;
-					this.handleLogin(this.loginForm)
-						.then(res => {
-							this.getUserInfo().then(res => {
-								this.loading = false;
-								this.$Message.success({
-									background: true,
-									content: '登录成功'
-								});
-								return this.$Router.replace({ name: 'index' });
-							});
-						})
-						.catch(msg => {
-							this.loading = false;
-							return this.$Message.error({
-								background: true,
-								content: msg
-							});
-						});
+					var res = await this.handleLogin(this.loginForm);
+					if (res) this.loading = false;
 				} else {
-					this.$Message.error('请输入账号或密码！');
+					this.$Message.error('请输入完整信息！');
 				}
 			});
 		},

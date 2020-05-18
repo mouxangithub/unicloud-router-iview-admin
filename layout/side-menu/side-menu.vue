@@ -10,6 +10,12 @@
 						<span>{{ showTitle(item.children[0]) }}</span>
 					</menu-item>
 				</template>
+				<MenuGroup :title="showTitle(item)" v-else-if="item.menugroup">
+					<MenuItem v-for="items in item.children" :name="getNameOrHref(items)" :key="`menu-${items.name}`">
+						<common-icon :type="items.icon || ''" />
+						<span>{{ showTitle(items) }}</span>
+					</MenuItem>
+				</MenuGroup>
 				<template v-else>
 					<side-menu-item v-if="showChildren(item)" :key="`menu-${item.name}`" :parent-item="item"></side-menu-item>
 					<menu-item v-else :name="getNameOrHref(item)" :key="`menu-${item.name}`">
