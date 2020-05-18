@@ -33,4 +33,5 @@
 # 问题
 如有其他的问题可私信我：QQ：455171924
 
+# 注意
 本项目使用了vue-router，所以可以不用一直在pages.json编写路由，应在“/router/router”router。但pages.json必须配置一项存在的页面，不然会报错
