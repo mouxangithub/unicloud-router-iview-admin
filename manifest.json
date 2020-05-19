@@ -23,8 +23,5 @@
         "uniStatistics" : {
             "enable" : true
         }
-    },
-    "uniStatistics" : {
-        "enable" : false
     }
 }

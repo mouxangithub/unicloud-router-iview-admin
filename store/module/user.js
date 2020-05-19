@@ -47,24 +47,24 @@ export default {
 			password
 		}) {
 			username = username.trim()
-			return new Promise((resolve, reject) => {
-				login({
-					username,
-					password
-				}).then(async res => {
+			return new Promise(async (resolve, reject) => {
+				try {
+					var res = await login({
+						username,
+						password
+					})
 					commit('setUserId', res)
-					var res = await dispatch('getUserInfo')
-					if (res) {
-						Notice.success({ title: '登录成功' });
-						router.replace({ name: 'index' });
-						return resolve(true)
-					} else {
-						return Message.error({
-							background: true,
-							content: res
-						})
-					}
-				})
+					await dispatch('getUserInfo')
+					Notice.success({
+						title: '登录成功'
+					});
+					router.replace({
+						name: 'index'
+					});
+					return resolve(true)
+				} catch (error) {
+					reject(error)
+				}
 			})
 		},
 		// 退出登录
@@ -79,16 +79,13 @@ export default {
 			state,
 			commit
 		}) {
-			return new Promise((resolve, reject) => {
+			return new Promise(async (resolve, reject) => {
 				try {
-					getAdminUserInfo(state.userId).then(res => {
-						commit('setUserInfo', res)
-						commit('setAccess', res.access[0].node)
-						commit('setHasGetInfo', res ? true : false)
-						resolve(res.access[0].node)
-					}).catch(err => {
-						reject(err)
-					})
+					var res = await getAdminUserInfo(state.userId)
+					commit('setUserInfo', res)
+					commit('setAccess', res.access[0].node)
+					commit('setHasGetInfo', res ? true : false)
+					resolve(res.access[0].node)
 				} catch (error) {
 					reject(error)
 				}

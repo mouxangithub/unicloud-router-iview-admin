@@ -51,8 +51,12 @@ export default {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
 					this.loading = true;
-					var res = await this.handleLogin(this.loginForm);
-					if (res) this.loading = false;
+					try {
+						await this.handleLogin(this.loginForm);
+						this.loading = false;
+					} catch (error) {
+						this.loading = false;
+					}
 				} else {
 					this.$Message.error('请输入完整信息！');
 				}

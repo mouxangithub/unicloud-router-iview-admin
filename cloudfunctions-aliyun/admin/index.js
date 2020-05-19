@@ -81,7 +81,7 @@ exports.main = async (event, context) => {
 			msg = '删除成功'
 			break;
 		case 'getAdminUserInfo':
-		var res = await collection.aggregate()
+			var res = await collection.aggregate()
 			data = (await collection.aggregate()
 				// 关联权限表
 				.lookup({
@@ -102,6 +102,12 @@ exports.main = async (event, context) => {
 					status: 0
 				})
 				.end()).data[0];
+			if (!data) {
+				return {
+					code: 404,
+					msg: '您没有权限'
+				}
+			}
 			msg = 'success';
 			code = 200
 			break;
