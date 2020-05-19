@@ -38,7 +38,7 @@
 
 ## 方法一：
 * 使用[uniapp插件市场](https://ext.dcloud.net.cn/plugin?id=1639)一键工程导入
-* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 npm install
+* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 npm run dow 进行下载依赖包
 * 创建或选择云服务空间,进入manifest.json可视化重新获取appid
 * 右键上传cloudfunctions-aliyun文件夹下所有云函数
 * 选择/cloudfunctions-aliyun/db_init.json右键初始化云数据库
@@ -47,7 +47,7 @@
 ## 方法二：
 * 使用[git工具](https://gitee.com/mouxangitee/unicloud-router-iview-admin)拉取
 * 复制源码到新建的项目
-* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 npm install
+* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 npm run dow 进行下载依赖包
 * 创建或选择云服务空间,进入manifest.json可视化重新获取appid
 * 右键上传cloudfunctions-aliyun文件夹下所有云函数
 * 选择/cloudfunctions-aliyun/db_init.json右键初始化云数据库
