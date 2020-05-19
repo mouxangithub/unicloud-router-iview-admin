@@ -94,7 +94,7 @@ exports.main = async (event, context) => {
 				.match({
 					_id: event.userId,
 					status: 1,
-					'access.status': true
+					'access.status': 1
 				})
 				.project({
 					password: 0,

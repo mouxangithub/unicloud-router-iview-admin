@@ -42,9 +42,9 @@
 		</Layout>
 		<Modal v-model="show" :title="showtitle" @on-cancel="cancel">
 			<Form ref="adminuser" :model="adminuser" :rules="rules" :label-width="80">
-				<FormItem prop="name" label="账号"><Input v-model="adminuser.username" placeholder="请输入账号" clearable /></FormItem>
-				<FormItem prop="node" label="密码"><Input v-model="adminuser.password" type="password" placeholder="请输入密码" clearable /></FormItem>
-				<FormItem prop="node" label="部门">
+				<FormItem prop="username" label="账号"><Input v-model="adminuser.username" placeholder="请输入账号" clearable /></FormItem>
+				<FormItem prop="password" label="密码"><Input v-model="adminuser.password" type="password" placeholder="请输入密码" clearable /></FormItem>
+				<FormItem prop="roles_id" label="部门">
 					<Select v-model="adminuser.roles_id" filterable>
 						<Option v-for="item in roles" v-model="item._id" :key="item._id">{{ item.name }}</Option>
 					</Select>
@@ -219,7 +219,7 @@ export default {
 		},
 		// 取消编辑&新增
 		cancel() {
-			this.method = ''
+			this.method = '';
 			this.adminuser = {
 				username: '',
 				password: '',
@@ -254,23 +254,27 @@ export default {
 		confirm(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					this.modal_loading = true;
-					try {
-						this.adminuser.status = this.adminuser.status ? 1 : 0;
-						if (this.method == 'add') {
-							await addAdminUser(this.adminuser);
-						} else if (this.method == 'edit') {
-							await editAdminUser(this.adminuser);
+					if (this.$store.state.user.userId != this.adminuser._id) {
+						this.modal_loading = true;
+						try {
+							this.adminuser.status = this.adminuser.status ? 1 : 0;
+							if (this.method == 'add') {
+								await addAdminUser(this.adminuser);
+							} else if (this.method == 'edit') {
+								await editAdminUser(this.adminuser);
+							}
+							this.$Message.success({
+								background: true,
+								content: '保存成功'
+							});
+							this.modal_loading = false;
+							this.getList();
+							this.cancel();
+						} catch (error) {
+							console.error(error);
 						}
-						this.$Message.success({
-							background: true,
-							content: '保存成功'
-						});
-						this.modal_loading = false;
-						this.getList();
-						this.cancel();
-					} catch (error) {
-						console.error(error);
+					} else {
+						this.$Message.error('禁止操作');
 					}
 				} else {
 					this.$Message.error('请输入完整信息！');

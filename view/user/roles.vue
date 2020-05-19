@@ -228,20 +228,28 @@ export default {
 		confirm(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					this.modal_loading = true;
-					this.department.status = this.department.status ? 1 : 0;
-					if (this.method == 'add') {
-						await addRoles(this.department);
-					} else if (this.method == 'edit') {
-						await editRoles(this.department);
+					if (this.department.name != '超级权限') {
+						this.modal_loading = true;
+						try {
+							this.department.status = this.department.status ? 1 : 0;
+							if (this.method == 'add') {
+								await addRoles(this.department);
+							} else if (this.method == 'edit') {
+								await editRoles(this.department);
+							}
+							this.$Message.success({
+								background: true,
+								content: '保存成功'
+							});
+							this.modal_loading = false;
+						} catch (error) {
+							this.modal_loading = false;
+						}
+						this.getList();
+						this.cancel();
+					} else {
+						this.$Message.error('禁止操作');
 					}
-					this.$Message.success({
-						background: true,
-						content: '保存成功'
-					});
-					this.modal_loading = false;
-					this.getList();
-					this.cancel();
 				} else {
 					this.$Message.error('请输入完整信息！');
 				}
