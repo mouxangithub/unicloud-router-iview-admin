@@ -81,6 +81,7 @@ exports.main = async (event, context) => {
 			msg = '删除成功'
 			break;
 		case 'getAdminUserInfo':
+		var res = await collection.aggregate()
 			data = (await collection.aggregate()
 				// 关联权限表
 				.lookup({
