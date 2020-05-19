@@ -1,5 +1,6 @@
 # unicloud-router-iview-admin
 一个简洁的后台管理系统模板，基于 uniCloud + iview + uni-simple-router 的后台管理系统
+<a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin/stargazers'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/star.svg?theme=dark' alt='star'></img></a>
 
 [演示地址:http://mouxangitee.gitee.io/unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router-iview-admin)
 
