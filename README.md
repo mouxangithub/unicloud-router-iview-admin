@@ -1,10 +1,11 @@
 # unicloud-router-iview-admin
+<a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/widgets/widget_6.svg' alt='Fork me on Gitee'></img></a>
+
 一个简洁的后台管理系统模板，基于 uniCloud + iview + uni-simple-router 的后台管理系统
 
 [演示地址:http://mouxangitee.gitee.io/unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router-iview-admin)
 
 <a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin/stargazers'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/star.svg?theme=dark' alt='star'></img></a> 
-<a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin/stargazers'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/star.svg?theme=white' alt='star'></img></a> 
 <a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin/members'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/fork.svg?theme=dark' alt='fork'></img></a>
 
 # 特别感谢
