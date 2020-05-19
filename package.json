@@ -1,15 +1,25 @@
 {
-  "name": "hcbb_admin",
-  "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "uni-simple-router": "^1.5.3",
-    "view-design": "^4.2.0-rc.1"
-  }
+	"name": "unicloud-router-iview-admin",
+	"version": "1.6.0",
+	"description": "> 一个更为简洁的[后台管理系统](http://mouxangitee.gitee.io/unicloud-router-iview-admin/#/)，专为 [uni-app](https://uniapp.dcloud.io/) 量身打造",
+	"main": "main.js",
+	"keywords": {
+		"unicloud-router-iview-admin",
+		"unicloud",
+		"uni-router",
+		"uniapp-admin"
+	},
+	"bugs": {
+		"email": "mouxan@163.com"
+	},
+	"scripts": {
+		// admin 和 adminLogin 云函数加入 md5-node
+		"dow": "npm install && cd cloudfunctions-aliyun/admin && npm install md5-node && cd ../adminLogin && npm install md5-node"
+	},
+	"author": "mouxan@163.com",
+	"license": "MIT",
+	"dependencies": {
+		"uni-simple-router": "^1.5.3",
+		"view-design": "^4.2.0-rc.1"
+	}
 }
