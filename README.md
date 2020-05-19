@@ -39,4 +39,4 @@
 # 注意
 本项目使用了vue-router，所以可以不用一直在pages.json编写路由，应在“/router/router”router。但pages.json必须配置一项存在的页面，不然会报错
 
-<a style="width:100%" href='https://gitee.com/mouxangitee/unicloud-router-iview-admin'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/widgets/widget_6.svg' alt='Fork me on Gitee'></img></a>
+<a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin'><img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/widgets/widget_6.svg' alt='Fork me on Gitee'></img></a>
