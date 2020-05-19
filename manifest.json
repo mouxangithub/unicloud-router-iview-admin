@@ -1,7 +1,7 @@
 {
     "name" : "unicloud-router-iview-admin",
-    "appid" : "",
-    "description" : "",
+    "appid" : "__UNI__05CC7E4",
+    "description" : "> 一个更为简洁的[后台管理系统](http://mouxangitee.gitee.io/unicloud-router-iview-admin/#/)，专为 [uni-app](https://uniapp.dcloud.io/) 量身打造",
     "versionName" : "v1",
     "versionCode" : "100",
     "transformPx" : false,

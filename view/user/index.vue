@@ -254,7 +254,7 @@ export default {
 		confirm(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					if (this.$store.state.user.userId != this.adminuser._id) {
+					if (this.adminuser.username != 'admin') {
 						this.modal_loading = true;
 						try {
 							this.adminuser.status = this.adminuser.status ? 1 : 0;
