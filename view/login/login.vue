@@ -18,6 +18,7 @@
 <script>
 import Checker from '@/libs/checker.js';
 import { mapActions } from 'vuex';
+import { validateUse, validatePass } from '@/libs/checker';
 export default {
 	data() {
 		return {
@@ -26,20 +27,8 @@ export default {
 				password: 'admin'
 			},
 			rules: {
-				username: [
-					{
-						required: true,
-						message: '请输入用户名',
-						trigger: 'blur'
-					}
-				],
-				password: [
-					{
-						required: true,
-						message: '请输入密码',
-						trigger: 'blur'
-					}
-				]
+				username: [{ required: true, validator: validateUse, trigger: 'blur' }],
+				password: [{ required: true, validator: validatePass, trigger: 'blur' }]
 			},
 			textType: 'password',
 			loading: false

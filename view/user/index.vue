@@ -44,8 +44,11 @@
 			<Form ref="adminuser" :model="adminuser" :rules="rules" :label-width="80">
 				<FormItem prop="username" label="账号"><Input v-model="adminuser.username" placeholder="请输入账号" clearable /></FormItem>
 				<FormItem prop="password" label="密码"><Input v-model="adminuser.password" type="password" placeholder="请输入密码" clearable /></FormItem>
+				<FormItem v-if="method === 'add'" prop="passwdCheck" label="确认密码">
+					<Input v-model="adminuser.passwdCheck" type="password" placeholder="请输入确认密码" clearable />
+				</FormItem>
 				<FormItem prop="roles_id" label="部门">
-					<Select v-model="adminuser.roles_id" filterable>
+					<Select v-model="adminuser.roles_id" clearable filterable>
 						<Option v-for="item in roles" v-model="item._id" :key="item._id">{{ item.name }}</Option>
 					</Select>
 				</FormItem>
@@ -64,8 +67,18 @@
 <script>
 import { getAdminUserList, deleteAdminUser, batchdelete, getAdminUser, addAdminUser, editAdminUser } from '@/api/user';
 import { getRolesList } from '@/api/roles';
+import { validateUse, validatePass } from '@/libs/checker';
 export default {
 	data() {
+		const validatePassCheck = (rule, value, callback) => {
+			if (!value) {
+				callback(new Error('请再次输入密码'));
+			} else if (value != this.adminuser.password) {
+				callback(new Error('两次密码不一致'));
+			} else {
+				callback();
+			}
+		};
 		return {
 			columns: [
 				{
@@ -115,17 +128,20 @@ export default {
 				pageSizeOpts: [10, 50, 100, 500, 1000]
 			},
 			rules: {
-				username: [{ required: true, message: '请输入账号', trigger: 'blur' }],
-				password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+				username: [{ required: true, validator: validateUse, trigger: 'blur' }],
+				password: [{ required: true, validator: validatePass, trigger: 'blur' }],
+				passwdCheck: [{ required: true, validator: validatePassCheck, trigger: 'blur' }],
 				roles_id: [{ required: true, message: '请选择部门' }],
 				status: [{ required: true, message: '请选择状态' }]
 			},
 			show: false,
 			showtitle: '',
 			modal_loading: false,
+			method: '',
 			adminuser: {
 				username: '',
 				password: '',
+				passwdCheck: '',
 				roles_id: '',
 				status: true
 			}
@@ -153,9 +169,7 @@ export default {
 						try {
 							await deleteAdminUser({ id });
 							this.$Message.success('删除成功');
-						} catch (error) {
-							console.error(error);
-						}
+						} catch (error) {}
 						this.getList();
 					}
 				});
@@ -173,11 +187,9 @@ export default {
 						content: '是否删除这些?',
 						onOk: async () => {
 							try {
-								await batchdelete({ this.ids });
+								await batchdelete({ ids: this.ids });
 								this.$Message.success('删除成功');
-							} catch (error) {
-								console.error(error);
-							}
+							} catch (error) {}
 							this.getList();
 						}
 					});
@@ -213,9 +225,7 @@ export default {
 				this.limit.total = res.total;
 				this.list = res.data;
 				this.loading = false;
-			} catch (error) {
-				console.error(error);
-			}
+			} catch (error) {}
 		},
 		// 取消编辑&新增
 		cancel() {
@@ -258,6 +268,7 @@ export default {
 						this.modal_loading = true;
 						try {
 							this.adminuser.status = this.adminuser.status ? 1 : 0;
+							delete this.adminuser.passwdCheck;
 							if (this.method == 'add') {
 								await addAdminUser(this.adminuser);
 							} else if (this.method == 'edit') {

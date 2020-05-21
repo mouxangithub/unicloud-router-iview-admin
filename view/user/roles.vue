@@ -140,9 +140,7 @@ export default {
 					try {
 						await deleteRoles({ id });
 						this.$Message.success('删除成功');
-					} catch (error) {
-						console.error(error);
-					}
+					} catch (error) {}
 					this.getList();
 				}
 			});
@@ -156,7 +154,7 @@ export default {
 					content: '是否删除这些?',
 					onOk: async () => {
 						try {
-							await batchdelete({ this.ids });
+							await batchdelete({ ids: this.ids });
 							this.$Message.success('删除成功');
 						} catch (error) {}
 						this.getList();
