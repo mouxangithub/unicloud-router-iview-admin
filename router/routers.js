@@ -39,7 +39,6 @@ export default [{
 			path: 'index',
 			name: 'index',
 			meta: {
-				access: ['index'],
 				title: '首页',
 				icon: 'md-home'
 			},
