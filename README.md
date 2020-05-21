@@ -67,6 +67,11 @@
 # 注意
 本项目使用了vue-router，所以可以不用一直在pages.json编写路由，应在“/router/router”router。但pages.json必须配置一项存在的页面，不然会报错
 
+# 声明
+该项目为MIT协议开源项目，可商用，但出现的一切后果与作者无关，与该开源项目无关，切记！！！
+
+如果觉得这个项目可以的话，麻烦大家动动您的小手帮我点一下上面的star，感谢
+
 <p align="center">
   <a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin'>
     <img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/widgets/widget_6.svg' alt='Fork me on Gitee'></img>
