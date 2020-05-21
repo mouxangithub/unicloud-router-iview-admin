@@ -173,7 +173,7 @@ export default {
 						content: '是否删除这些?',
 						onOk: async () => {
 							try {
-								await batchdelete({ ids });
+								await batchdelete({ this.ids });
 								this.$Message.success('删除成功');
 							} catch (error) {
 								console.error(error);
