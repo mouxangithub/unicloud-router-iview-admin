@@ -6,7 +6,7 @@
     "versionCode" : 160,
     "transformPx" : false,
     "h5" : {
-        "title" : "惠城帮帮",
+        "title" : "unicloud-router-iview-admin",
         "router" : {
             "base" : "/unicloud-router-iview-admin/",
             "mode" : "hash"
