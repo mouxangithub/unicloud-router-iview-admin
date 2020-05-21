@@ -1,0 +1,21 @@
+{
+	"name": "unicloud-router-iview-admin",
+	"version": "1.6.1",
+	"description": "> 一个更为简洁的[后台管理系统](http://mouxangitee.gitee.io/unicloud-router-iview-admin/#/)，专为 [uni-app](https://uniapp.dcloud.io/) 量身打造",
+	"main": "main.js",
+	"bugs": {
+		"email": "mouxan@163.com"
+	},
+	"scripts": {
+		"dow": "npm install && node -e  \"console.log('/** \\n * 正在下载admin云函数依赖 \\n */ \\n')\" && cd cloudfunctions-aliyun/admin && npm install && node -e \"console.log('/** \\n * 正在下载adminLogin云函数依赖 \\n */ \\n')\" && cd ../adminLogin && npm install && node -e  \"console.log('/** \\n * 下载完毕，感谢使用 By: Mouxan \\n * 如有其他问题请联系 QQ: 455171924 \\n */ \\n')\""
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://gitee.com/mouxangitee/unicloud-router-iview-admin.git"
+	},
+	"dependencies": {
+		"uni-simple-router": "^1.5.3",
+		"view-design": "^4.2.0-rc.1"
+	}
+}
