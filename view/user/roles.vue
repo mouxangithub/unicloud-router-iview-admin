@@ -44,7 +44,7 @@
 <script>
 import { getRoles, getRolesList, deleteRoles, batchdelete, addRoles, editRoles } from '@/api/roles';
 import routers from '@/router/routers';
-import { getAuthByRouter } from '@/libs/util';
+import { getSubRouter } from '@/libs/util';
 export default {
 	data() {
 		return {
@@ -102,7 +102,7 @@ export default {
 				status: [{ required: true, message: '请选择状态' }]
 			},
 			nodes: [],
-			authTree: getAuthByRouter(routers),
+			authTree: [],
 			department: {
 				name: '',
 				node: [],
@@ -196,6 +196,7 @@ export default {
 			if (action === 'add') {
 				this.showtitle = '新增部门';
 				this.method = 'add';
+				this.authTree = getSubRouter(routers, [], this.$store.state.user.access);
 			} else {
 				this.showtitle = '编辑部门';
 				this.method = 'edit';
@@ -207,11 +208,9 @@ export default {
 			try {
 				const res = await getRoles({ id });
 				this.department = res;
-				this.authTree = getAuthByRouter(routers, this.department.node);
+				this.authTree = getSubRouter(routers, this.department.node, this.$store.state.user.access);
 				this.department.status = res.status ? true : false;
-			} catch (error) {
-				console.error(error);
-			}
+			} catch (error) {}
 		},
 		// 取消编辑&新增
 		cancel() {
@@ -221,7 +220,6 @@ export default {
 				node: [],
 				status: true
 			};
-			this.authTree = getAuthByRouter(routers);
 			this.show = false;
 		},
 		// 提交

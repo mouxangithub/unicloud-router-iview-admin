@@ -6,11 +6,6 @@
 {
 	"admin": {
 		"data": [{
-			"password": "53977771cf94aa861c2a25b845e99f57",
-			"roles_id": "5ec1f715f8eeb6004dc291f6",
-			"status": 1,
-			"username": "mouxan"
-		}, {
 			"password": "21232f297a57a5a743894a0e4a801fc3",
 			"roles_id": "5ec1f715f8eeb6004dc291f6",
 			"status": 1,
@@ -21,15 +16,6 @@
 		"data": [{
 			"_id": "5ec1f715f8eeb6004dc291f6",
 			"name": "超级权限",
-			"node": [
-				"index",
-				"user",
-				"roles"
-			],
-			"status": 1
-		}, {
-			"_id": "5ec1f715f8eeb6004dc291f6",
-			"name": "技术部",
 			"node": [
 				"index",
 				"user",

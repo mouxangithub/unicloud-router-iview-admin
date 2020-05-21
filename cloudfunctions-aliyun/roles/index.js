@@ -1,7 +1,4 @@
 'use strict';
-/**
- * department表的函数
- */
 const db = uniCloud.database();
 const _ = db.command
 var code,

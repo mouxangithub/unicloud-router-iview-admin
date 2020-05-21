@@ -142,6 +142,78 @@ export const getAuthByRouter = (list, useraccess) => {
 }
 
 /**
+ * 获取对应账号的路由，及自动匹配路由
+ * @param {Array} 
+ *         list 通过路由列表得到权限列表
+ *         useraccess
+ *         checked 是否全选
+ *         expand 是否展开全部
+ *         myaccess 父级权限
+ * 新增：分配子权限
+ */
+export const getSubRouter = (list, useraccess, myaccess) => {
+	let auth = []
+	forEach(list, res => {
+		var obj = {
+			expand: true,
+		};
+		// 如果没有子路由并且access存在
+		if (!res.children && res.meta.access && arrayEqual(myaccess, res.meta.access)) {
+			obj.title = res.meta.title;
+			obj.access = res.meta.access;
+			obj.checked = useraccess ? arrayEqual(useraccess, res.meta.access) : false
+		}
+		// 多个子路由
+		else if (res.children && res.children.length > 1) {
+			// 获取下一级子路由信息
+			var childrens = getSubRouter(res.children, useraccess, myaccess)
+			// 如果只有一个配置权限节点则直接替代父级
+			if (childrens.length == 1) {
+				if (childrens[0].access && arrayEqual(myaccess, childrens[0].access)) {
+					obj.title = childrens[0].title
+					obj.access = childrens[0].access
+					obj.children = childrens[0].children ? getSubRouter(childrens[0].children, useraccess, myaccess) : null
+					obj.checked = useraccess ? arrayEqual(useraccess, childrens[0].access) : false
+				} else obj = null
+			} else {
+				obj.title = res.meta.title
+				if (res.meta.access && arrayEqual(myaccess, res.meta.access)) {
+					obj.access = res.meta.access
+					obj.checked = useraccess ? arrayEqual(useraccess, res.meta.access) : false
+				}
+				if (childrens.length > 1) {
+					obj.children = childrens
+				} else {
+					obj = null
+				}
+			}
+		}
+		// 子路由一个
+		else if (res.children && res.children.length == 1) {
+			const ca = res.children[0].meta.access;
+			const ma = res.meta.access;
+			// 子路由和父级路由权限都存在，显示父级
+			if (ca && ma && arrayEqual(myaccess, ma) || !ca && ma && arrayEqual(myaccess, ma)) {
+				obj.title = res.meta.title
+				obj.access = res.meta.access
+				obj.children = res.children ? getSubRouter(res.children, useraccess, myaccess) : null
+				obj.checked = useraccess ? arrayEqual(useraccess, ma) : false
+			}
+			// 子路由权限存在，父级不存在，显示子路由，取代父级
+			else if (ca && !ma && arrayEqual(myaccess, res.children[0].meta.access)) {
+				obj.title = res.children[0].meta.title;
+				obj.access = res.children[0].meta.access;
+				obj.children = res.children[0].children ? getSubRouter(res.children[0].children, useraccess, myaccess) : null
+				obj.checked = useraccess ? arrayEqual(useraccess, ca) : false
+			} else obj = null
+		} else obj = null;
+		// 组合数组
+		obj ? auth.push(obj) : null;
+	})
+	return auth
+}
+
+/**
  * @param {Array} routeMetched 当前路由metched
  * @returns {Array}
  */
