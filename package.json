@@ -7,7 +7,7 @@
 		"email": "mouxan@163.com"
 	},
 	"scripts": {
-		"build": "npm install && node -e  \"console.log('/** \\n * 正在下载admin云函数依赖 \\n */ \\n')\" && cd cloudfunctions-aliyun/admin && npm install && node -e \"console.log('/** \\n * 正在下载adminLogin云函数依赖 \\n */ \\n')\" && cd ../adminLogin && npm install && node -e  \"console.log('/** \\n * 下载完毕，感谢使用 By: Mouxan \\n * 如有其他问题请联系 QQ: 455171924 \\n */ \\n')\""
+		"build": "node .unicloud-admin/runner-start.js && npm install && cd cloudfunctions-aliyun/admin && npm install && cd ../adminLogin && npm install && node ../../.unicloud-admin/runner-end.js"
 	},
 	"license": "MIT",
 	"repository": {
@@ -15,6 +15,10 @@
 		"url": "https://gitee.com/mouxangitee/unicloud-router-iview-admin.git"
 	},
 	"dependencies": {
+		"cfonts": "^2.8.4",
+		"chalk": "^4.1.0",
+		"js-cookie": "^2.2.1",
+		"uni-id": "file:cloudfunctions-aliyun/common/admin",
 		"uni-simple-router": "^1.5.3",
 		"view-design": "^4.2.0-rc.1"
 	}

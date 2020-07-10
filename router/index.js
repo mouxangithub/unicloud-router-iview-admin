@@ -4,8 +4,7 @@ import { Message, LoadingBar } from 'view-design';
 import routes from './routers'
 import store from '@/store'
 import {
-	getUseInfoStorage,
-	removeUseInfoStorage,
+	getToken,
 	canTurnTo,
 	setTitle
 } from '@/libs/util'
@@ -31,8 +30,8 @@ const turnTo = (to, access, next) => {
 //全局路由前置守卫
 router.beforeEach((to, from, next) => {
 	LoadingBar.start()
-	const UserInfo = getUseInfoStorage();
-	if (!UserInfo && to.name !== LOGIN_PAGE_NAME) {
+	const token = getToken()
+	if (!token && to.name !== LOGIN_PAGE_NAME) {
 		Message.error({
 			background: true,
 			content: '非法入侵'
@@ -41,10 +40,10 @@ router.beforeEach((to, from, next) => {
 		next({
 			name: LOGIN_PAGE_NAME // 跳转到登录页
 		})
-	} else if (!UserInfo && to.name === LOGIN_PAGE_NAME) {
+	} else if (!token && to.name === LOGIN_PAGE_NAME) {
 		// 未登陆且要跳转的页面是登录页
 		next() // 跳转
-	} else if (UserInfo && to.name === LOGIN_PAGE_NAME) {
+	} else if (token && to.name === LOGIN_PAGE_NAME) {
 		// 已经登录跳转登录
 		Message.success({
 			background: true,
@@ -55,13 +54,13 @@ router.beforeEach((to, from, next) => {
 		})
 	} else {
 		if (store.state.user.hasGetInfo) {
-			turnTo(to, UserInfo.access[0].node, next)
+			turnTo(to, store.state.user.access, next)
 		} else {
-			store.dispatch('getUserInfo').then(user => {
+			store.dispatch('getUserInfo').then(access => {
 				// 拉取用户信息，通过用户权限和跳转的页面的name来判断是否有权限访问;access必须是一个数组，如：['super_admin'] ['super_admin', 'admin']
-				turnTo(to, user, next)
+				turnTo(to, access, next)
 			}).catch(() => {
-				removeUseInfoStorage('')
+				getToken('')
 				next({
 					name: 'login'
 				})

@@ -51,7 +51,7 @@ export default [{
 		name: '/user/index',
 		redirect: '/index',
 		meta: {
-			title: '社团管理',
+			title: '用户管理',
 			icon: 'md-nuclear'
 		},
 		children: [{
@@ -59,7 +59,7 @@ export default [{
 			name: 'user',
 			meta: {
 				access: ['user'],
-				title: '成员管理',
+				title: '用户管理',
 				icon: 'ios-people'
 			},
 			component: () => import('@/view/user/index')
@@ -68,7 +68,7 @@ export default [{
 			name: 'roles',
 			meta: {
 				access: ['roles'],
-				title: '部门管理',
+				title: '角色管理',
 				icon: 'ios-aperture'
 			},
 			component: () => import('@/view/user/roles')

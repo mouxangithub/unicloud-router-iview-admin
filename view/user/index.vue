@@ -2,7 +2,7 @@
 	<Card>
 		<Layout>
 			<Sider style="background-color: #f3f3f3;" hide-trigger>
-				<view class="title">部门</view>
+				<view class="title">角色</view>
 				<view class="Sider">
 					<Button class="access" :type="limit.rolesid === '' ? 'primary' : 'default'" @click="changeroles()">全部</Button>
 					<Button class="access" @click="changeroles(item._id)" :type="limit.rolesid === item._id ? 'primary' : 'default'" v-for="(item, index) in roles" :key="index">
@@ -12,7 +12,7 @@
 			</Sider>
 			<Layout class="bodys">
 				<view>
-					<Button class="top" type="primary" @click="addedit('add')">添加成员</Button>
+					<Button class="top" type="primary" @click="addedit('add')">新增用户</Button>
 					<Button class="top" type="error" @click="batchDe">批量删除</Button>
 					<Tooltip content="刷新" placement="right"><Button class="top" type="primary" shape="circle" icon="md-refresh" @click="getList" /></Tooltip>
 					<Input class="top inpt" search suffix="ios-search" placeholder="用户名" v-model="limit.username" @on-search="getList" @on-change="getList" />
@@ -106,7 +106,7 @@ export default {
 					sortable: true,
 					align: 'center',
 					render: (h, res) => {
-						return h('span', res.row.status == 1 ? '正常' : '禁用');
+						return h('span', res.row.status == 0 ? '正常' : '禁用');
 					}
 				},
 				{
@@ -160,7 +160,7 @@ export default {
 		// 删除
 		async deleted(id) {
 			// 不能删除当前账号
-			if (this.$store.state.user.userId != id) {
+			if (this.$store.state.user.uid != id) {
 				var that = this;
 				this.$Modal.confirm({
 					title: '提示信息',
@@ -179,7 +179,7 @@ export default {
 		},
 		// 批量删除
 		async batchDe() {
-			if (this.ids.findIndex(item => item === this.$store.state.user.userId) === -1) {
+			if (this.ids.findIndex(item => item === this.$store.state.user.uid) === -1) {
 				if (this.ids.length > 0) {
 					var that = this;
 					this.$Modal.confirm({
@@ -243,7 +243,7 @@ export default {
 			try {
 				const res = await getAdminUser({ id });
 				this.adminuser = res;
-				this.adminuser.status = res.status ? true : false;
+				this.adminuser.status = res.status ? false : true;
 			} catch (error) {
 				console.error(error);
 			}
@@ -264,10 +264,11 @@ export default {
 		confirm(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					if (this.adminuser.username != 'admin') {
+					console.log(this.adminuser)
+					if (this.adminuser._id != "5f06d4b604c20400012c32f4") {
 						this.modal_loading = true;
 						try {
-							this.adminuser.status = this.adminuser.status ? 1 : 0;
+							this.adminuser.status = this.adminuser.status ? 0 : 1;
 							delete this.adminuser.passwdCheck;
 							if (this.method == 'add') {
 								await addAdminUser(this.adminuser);

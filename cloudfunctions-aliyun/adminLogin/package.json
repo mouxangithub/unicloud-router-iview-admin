@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "md5-node": "^1.0.1"
+    "admin": "file:../common/admin"
   }
 }

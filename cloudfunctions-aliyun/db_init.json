@@ -6,10 +6,16 @@
 {
 	"admin": {
 		"data": [{
-			"password": "21232f297a57a5a743894a0e4a801fc3",
-			"roles_id": "af8f9dffa5d420fbc249141645b962ee",
-			"status": 1,
-			"username": "admin"
+			"username": "admin",
+			"password": "cc467cc7b384b2d978be83c6dd6c0d2259d74872",
+			"register_date": 1594283190675,
+			"register_ip": "5.188.33.13",
+			"token": [],
+			"avatar": "https://img.cdn.aliyun.dcloud.net.cn/uni-app/uniCloud/unicloudlogo.png",
+			"last_login_date": 1594359603410,
+			"last_login_ip": "218.17.110.84",
+			"roles_id": "5ec1f715f8eeb6004dc291f6",
+			"status": 0
 		}]
 	},
 	"roles": {
@@ -17,7 +23,6 @@
 			"_id": "5ec1f715f8eeb6004dc291f6",
 			"name": "超级权限",
 			"node": [
-				"index",
 				"user",
 				"roles"
 			],

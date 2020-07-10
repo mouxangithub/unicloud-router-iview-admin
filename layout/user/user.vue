@@ -2,11 +2,12 @@
 	<div class="user-avatar-dropdown">
 		<Dropdown @on-click="handleClick">
 			<Badge :dot="!!messageUnreadCount">
-				<Avatar>{{ userAvatar }}</Avatar>
+				<Avatar v-if="avatar" :src="avatar" />
+				<Avatar v-else>{{ username.substring(0, 1).toUpperCase() }}</Avatar>
 			</Badge>
 			<Icon :size="18" type="md-arrow-dropdown"></Icon>
 			<DropdownMenu slot="list">
-				<DropdownItem name="user">个人中心</DropdownItem>
+				<!-- <DropdownItem name="userInfo">个人中心</DropdownItem> -->
 				<DropdownItem name="logout">退出登录</DropdownItem>
 			</DropdownMenu>
 		</Dropdown>
@@ -18,41 +19,28 @@ import './user.less';
 import { mapActions } from 'vuex';
 export default {
 	name: 'User',
-	props: {
-		userAvatar: {
-			type: String,
-			default: ''
-		},
-		messageUnreadCount: {
-			type: Number,
-			default: 0
-		}
+	data() {
+		return {
+			avatar: this.$store.state.user.UseInfo.avatar,
+			username: this.$store.state.user.UseInfo.username,
+			messageUnreadCount: 0
+		};
 	},
 	methods: {
 		...mapActions(['handleLogOut']),
-		logout() {
-			this.handleLogOut().then(() => {
-				this.$Message.success({
-					background: true,
-					content: '退出成功'
-				});
-				this.$router.push({
-					name: 'login'
-				});
-			});
-		},
-		user() {
-			this.$router.push({
-				name: 'user'
-			});
-		},
-		handleClick(name) {
+		async handleClick(name) {
 			switch (name) {
-				case 'logout':
-					this.logout();
+				case 'userInfo':
+					this.$router.push({
+						name: 'userInfo'
+					});
 					break;
-				case 'user':
-					this.user();
+				case 'logout':
+					await this.handleLogOut();
+					this.$Message.success({
+						background: true,
+						content: '退出成功'
+					});
 					break;
 			}
 		}

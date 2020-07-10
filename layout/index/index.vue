@@ -12,7 +12,7 @@
 		<Layout>
 			<Header class="header-con">
 				<header-bar :collapsed="collapsed" @on-coll-change="handleCollapsedChange">
-					<user :message-unread-count="unreadCount" :user-avatar="userAvatar" />
+					<user />
 					<fullscreen v-model="isFullscreen" style="margin-right: 10px;margin-top: 5px;" />
 					<!-- <language v-if="$config.useI18n" @on-lang-change="setLocal" style="margin-right: 10px;" :lang="local" />
 					<error-store v-if="$config.plugin['error-store'] && $config.plugin['error-store'].showInHeader" :has-read="hasReadErrorPage" :count="errorCount"></error-store> -->
@@ -64,9 +64,6 @@ export default {
 		},
 		tagRouter() {
 			return this.$store.state.app.tagRouter;
-		},
-		userAvatar() {
-			return this.$store.state.user.UseInfo.username.substring(0,1).toUpperCase();
 		},
 		cacheList() {
 			const list = ['ParentView', ...(this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : [])];

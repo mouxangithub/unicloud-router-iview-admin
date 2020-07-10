@@ -86,7 +86,7 @@ export default {
 					key: 'status',
 					align: 'center',
 					render: (h, res) => {
-						return h('span', res.row.status == 1 ? '正常' : '禁用');
+						return h('span', res.row.status == 0 ? '正常' : '禁用');
 					}
 				},
 				{
@@ -205,7 +205,7 @@ export default {
 				const res = await getRoles({ id });
 				this.department = res;
 				this.authTree = getSubRouter(routers, this.department.node, this.$store.state.user.access);
-				this.department.status = res.status ? true : false;
+				this.department.status = res.status ? false : true;
 			} catch (error) {}
 		},
 		// 取消编辑&新增
@@ -225,7 +225,7 @@ export default {
 					if (this.department.name != '超级权限') {
 						this.modal_loading = true;
 						try {
-							this.department.status = this.department.status ? 1 : 0;
+							this.department.status = this.department.status ? 0 : 1;
 							if (this.method == 'add') {
 								await addRoles(this.department);
 							} else if (this.method == 'edit') {

@@ -4,37 +4,35 @@ import {
 	objEqual
 } from '@/libs/tools'
 import config from '@/config'
+import Cookies from 'js-cookie'
 const {
 	title,
 	useI18n,
-	storageExpires
+	cookieExpires
 } = config
 
-export const setUseInfoStorage = (data) => {
-	var timestamp = Date.parse(new Date()); //当前时间
-	var expiration = timestamp + storageExpires; // 缓存设置时间
-	uni.setStorageSync('useInfoStorageTime', expiration);
-	uni.setStorageSync('UserInfo', data);
-}
+export const TOKEN_KEY = 'token'
 
-export const getUseInfoStorage = () => {
-	var timestamp = Date.parse(new Date()); //当前时间
-	var expiration = timestamp + storageExpires; // 缓存设置时间
-	var useInfoStorageTime = uni.getStorageSync("useInfoStorageTime");
-	if (useInfoStorageTime) {
-		if (timestamp < useInfoStorageTime) {
-			const UserInfo = uni.getStorageSync('UserInfo');
-			if (UserInfo) {
-				return UserInfo;
-			}
-		}
+export const setToken = (token) => {
+	if (token) {
+		uni.setStorageSync('uniIdToken', token)
+	} else {
+		uni.removeStorageSync('uniIdToken');
 	}
-	removeUseInfoStorage()
-	return false
+	Cookies.set(TOKEN_KEY, token, {
+		expires: cookieExpires * (60 * 60 * 1000) || 2 * (60 * 60 * 1000)
+	})
 }
 
-export const removeUseInfoStorage = () => {
-	uni.removeStorageSync('UserInfo');
+export const getToken = () => {
+	const token = Cookies.get(TOKEN_KEY)
+	if (token) {
+		return token
+	}
+	else {
+		uni.removeStorageSync('uniIdToken');
+		return false
+	}
 }
 
 export const hasChild = (item) => {

@@ -1,12 +1,12 @@
 import {
-	getUseInfoStorage,
-	setUseInfoStorage,
-	removeUseInfoStorage
+	setToken,
+	getToken
 } from '@/libs/util';
 import {
 	login,
-	getAdminUserInfo
-} from '@/api/user'
+	getAdminUserInfo,
+	logout
+} from '@/api/login'
 import {
 	Message,
 	Notice
@@ -15,22 +15,28 @@ import router from '@/router'
 
 export default {
 	state: {
-		userId: getUseInfoStorage() ? getUseInfoStorage()._id : '',
-		UseInfo: getUseInfoStorage() || '',
-		access: getUseInfoStorage() ? getUseInfoStorage().access[0].node : '',
-		hasGetInfo: getUseInfoStorage() ? true : false
+		uid: uni.getStorageSync('uni') || '',
+		token: getToken() || '',
+		UseInfo: uni.getStorageSync('UseInfo') || '',
+		access: uni.getStorageSync('access') || '',
+		hasGetInfo: false
 	},
 	mutations: {
-		setUserId(state, id) {
-			state.userId = id
-			uni.setStorageSync('UserId', id);
+		setUid(state, uid) {
+			state.uid = uid
+			uni.setStorageSync('uni', uid)
+		},
+		setToken(state, token) {
+			state.token = token
+			setToken(token)
 		},
 		setAccess(state, access) {
 			state.access = access
+			uni.setStorageSync('access', access)
 		},
 		setUserInfo(state, UseInfo) {
 			state.UseInfo = UseInfo
-			setUseInfoStorage(UseInfo)
+			uni.setStorageSync('UseInfo', UseInfo)
 		},
 		setHasGetInfo(state, status) {
 			state.hasGetInfo = status
@@ -46,14 +52,14 @@ export default {
 			username,
 			password
 		}) {
-			username = username.trim()
 			return new Promise(async (resolve, reject) => {
 				try {
 					var res = await login({
 						username,
 						password
 					})
-					commit('setUserId', res)
+					commit('setUid', res.uid)
+					commit('setToken', res.token)
 					await dispatch('getUserInfo')
 					Notice.success({
 						title: '登录成功'
@@ -68,25 +74,40 @@ export default {
 			})
 		},
 		// 退出登录
-		handleLogOut() {
-			return new Promise((resolve, reject) => {
-				removeUseInfoStorage()
-				resolve()
+		handleLogOut({
+			commit
+		}) {
+			return new Promise(async (resolve, reject) => {
+				try {
+					await logout()
+					commit('setUid', '')
+					commit('setToken', '')
+					commit('setHasGetInfo', '')
+					getToken('')
+					router.replace({
+						name: 'login'
+					});
+					resolve()
+				} catch (error) {
+					reject(error)
+				}
 			})
 		},
 		// 获取用户相关信息
 		getUserInfo({
 			state,
-			commit
+			commit,
+			dispatch
 		}) {
 			return new Promise(async (resolve, reject) => {
 				try {
-					var res = await getAdminUserInfo(state.userId)
+					var res = await getAdminUserInfo()
 					commit('setUserInfo', res)
 					commit('setAccess', res.access[0].node)
 					commit('setHasGetInfo', res ? true : false)
 					resolve(res.access[0].node)
 				} catch (error) {
+					await dispatch('handleLogOut')
 					reject(error)
 				}
 			})

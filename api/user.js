@@ -1,24 +1,5 @@
 import request from '@/libs/request'
 var url = 'admin'
-// 登录
-export const login = (data) => {
-	return request({
-		url: 'adminLogin',
-		method: 'POST',
-		data
-	})
-}
-
-// 获取用户信息
-export const getAdminUserInfo = (userId) => {
-	return request({
-		url,
-		method: 'getAdminUserInfo',
-		data: {
-			userId
-		}
-	})
-}
 
 // 获取用户列表
 export const getAdminUserList = (data) => {

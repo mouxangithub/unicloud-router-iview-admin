@@ -8,6 +8,16 @@ import store from '@/store';
 import config from '@/config'
 Vue.use(ViewUI);
 
+ViewUI.Message.config({
+	top: 50,
+	duration: 3
+});
+
+ViewUI.Notice.config({
+	top: 100,
+	duration: 3
+});
+
 Vue.config.productionTip = false
 Vue.prototype.$config = config
 

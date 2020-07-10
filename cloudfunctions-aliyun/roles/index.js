@@ -4,15 +4,22 @@ const _ = db.command
 var code,
 	msg,
 	data
+const admin = require('admin')
 exports.main = async (event, context) => {
+	// 核对token
+	var payload = await admin.checkToken(event.uniIdToken)
+	if (payload.code && payload.code > 0) {
+		return payload
+	}
+	let params = event.params
 	const collection = db.collection('roles')
 	switch (event.method) {
 		// 查询角色列表
 		case 'GET':
-			var page = event.page ? event.page : 1,
-				pageSize = event.pageSize ? event.pageSize : 99999,
+			var page = params.page ? params.page : 1,
+				pageSize = params.pageSize ? params.pageSize : 99999,
 				search = {
-					name: event.search ? new RegExp(event.search) : _.exists(true)
+					name: params.search ? new RegExp(params.search) : _.exists(true)
 				},
 				total = (await collection.where(search).count()).total,
 				res = (await collection.aggregate()
@@ -32,7 +39,7 @@ exports.main = async (event, context) => {
 					.skip((page - 1) * pageSize)
 					.limit(pageSize)
 					.end()).data;
-			code = 200
+			code = 0
 			msg = 'success'
 			data = {
 				total,
@@ -42,31 +49,29 @@ exports.main = async (event, context) => {
 			}
 			break;
 		case 'GETONE':
-			data = (await collection.doc(event.id).get()).data[0];
-			code = 200
+			data = (await collection.doc(params.id).get()).data[0];
+			code = 0
 			msg = 'success'
 			break;
 			// 添加角色
 		case 'POST':
-			delete event.method;
-			if (event._id) {
-				delete event._id;
+			if (params._id) {
+				delete params._id;
 			}
-			await collection.add(event);
-			code = 200
+			await collection.add(params);
+			code = 0
 			msg = '新增成功'
 			break;
 		case 'EDIT':
-			delete event.method;
-			var id = event._id
-			delete event._id;
-			await collection.doc(id).update(event);
-			code = 200
+			var id = params._id
+			delete params._id;
+			await collection.doc(id).update(params);
+			code = 0
 			msg = '编辑成功'
 			break;
 		case 'DELETE':
 			var res = await db.collection('admin').where({
-				roles_id: event.id
+				roles_id: params.id
 			}).count()
 			if (res.total > 0) {
 				return {
@@ -74,12 +79,12 @@ exports.main = async (event, context) => {
 					msg: '存在关联信息，请处理妥当再操作'
 				};
 			}
-			await collection.doc(event.id).remove();
-			code = 200
+			await collection.doc(params.id).remove();
+			code = 0
 			msg = '删除成功'
 			break;
 		case 'BATCHDELETE':
-			for (var item of event.ids) {
+			for (var item of params.ids) {
 				const data = await db.collection('admin').where({
 					roles_id: item
 				}).count()
@@ -91,7 +96,7 @@ exports.main = async (event, context) => {
 				}
 				await collection.doc(item).remove();
 			}
-			code = 200
+			code = 0
 			msg = '删除成功'
 			break;
 		default:
