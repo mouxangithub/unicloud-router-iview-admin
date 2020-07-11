@@ -27,6 +27,7 @@
 ├── config                  项目配置
 ├── layout                  布局资源
 ├── libs                    封装的函数方法
+├── unicloud-admin           Node.js运行脚本
 ├── router                  路由配置
 ├── store                   Vuex配置
 ├── view                    页面视图文件
