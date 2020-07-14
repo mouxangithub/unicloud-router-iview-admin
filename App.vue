@@ -1,7 +1,3 @@
-<script>
-	export default {
-	}
-</script>
 <style>
 * {
 	font-size: 14px;

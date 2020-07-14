@@ -1,14 +1,14 @@
 {
-  "name": "admin",
+  "name": "api",
   "version": "1.0.0",
-  "description": "",
+  "description": "云函数封装",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "admin": "file:../common/admin"
+    "nodemailer": "^6.4.10"
   }
 }

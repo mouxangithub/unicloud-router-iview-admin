@@ -23,6 +23,11 @@
 |   ├── icons               自定义图标资源
 |   └── images              图片资源
 ├── cloudfunctions-aliyun   配置云开发目录
+|   └── api                 服务端api云函数
+|       ├── config          配置项
+|       ├── controller      业务逻辑函数
+|       ├── libs            函数集
+|       └── index.js        中控
 ├── components              组件资源
 ├── config                  项目配置
 ├── layout                  布局资源

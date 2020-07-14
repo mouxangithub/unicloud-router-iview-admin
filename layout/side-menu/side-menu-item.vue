@@ -25,12 +25,8 @@
 <script>
 import mixin from './mixin';
 import itemMixin from './item-mixin';
-import commonIcon from '@/components/icons/icons';
 export default {
 	name: 'SideMenuItem',
-	components: {
-		commonIcon
-	},
 	mixins: [mixin, itemMixin]
 };
 </script>

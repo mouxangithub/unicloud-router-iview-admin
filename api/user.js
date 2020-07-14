@@ -1,5 +1,5 @@
 import request from '@/libs/request'
-var url = 'admin'
+var url = 'user/index'
 
 // 获取用户列表
 export const getAdminUserList = (data) => {

@@ -6,10 +6,11 @@ import router from '@/router'
 export default function(obj) {
 	return new Promise((resolve, reject) => {
 		uniCloud.callFunction({
-			name: obj.url,
+			name: 'api',
 			data: {
+				url: obj.url,
 				method: obj.method,
-				params: obj.data
+				data: obj.data
 			},
 			success(res) {
 				var data = res.result

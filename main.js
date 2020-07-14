@@ -17,6 +17,10 @@ ViewUI.Notice.config({
 	top: 100,
 	duration: 3
 });
+// 富文本
+import Editor from './components/editor/editor'
+import 'github-markdown-css/github-markdown.css';
+Vue.component('Editor', Editor)
 
 Vue.config.productionTip = false
 Vue.prototype.$config = config
@@ -24,8 +28,9 @@ Vue.prototype.$config = config
 App.mpType = 'app'
 
 const app = new Vue({
-    ...App,
-    store
+	...App,
+	router,
+	store
 })
 
 RouterMount(app,'#app');

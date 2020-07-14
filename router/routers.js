@@ -75,6 +75,25 @@ export default [{
 		}]
 	},
 	{
+		path: '/components',
+		name: 'components',
+		component: Layout,
+		redirect: '/editor',
+		meta: {
+			title: '组件',
+			icon: 'logo-buffer'
+		},
+		children: [{
+			path: 'editor',
+			name: 'editor',
+			meta: {
+				title: '富文本编辑器',
+				icon: 'ios-create'
+			},
+			component: () => import('@/components/editor/editor')
+		}]
+	},
+	{
 		path: '/401',
 		name: 'error_401',
 		meta: {
