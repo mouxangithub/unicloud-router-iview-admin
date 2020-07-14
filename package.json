@@ -7,7 +7,7 @@
 		"email": "mouxan@163.com"
 	},
 	"scripts": {
-		"build": "npm install && node unicloud-admin/runner-start.js && cd cloudfunctions-aliyun/admin && npm install && cd ../adminLogin && npm install && cd ../roles && npm install && node ../../unicloud-admin/runner-end.js"
+		"build": "npm install && node unicloud-admin/runner-start.js && cd cloudfunctions-aliyun/api && npm install && node ../../unicloud-admin/runner-end.js"
 	},
 	"license": "MIT",
 	"repository": {
