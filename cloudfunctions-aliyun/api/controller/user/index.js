@@ -28,7 +28,6 @@ module.exports = {
 						})
 						.project({
 							password: 0,
-							status: 0,
 							token: 0,
 							last_login_date: 0,
 							last_login_ip: 0,
