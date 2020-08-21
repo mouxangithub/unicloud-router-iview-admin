@@ -17,6 +17,12 @@ ViewUI.Notice.config({
 	top: 100,
 	duration: 3
 });
+
+// 图片预览插件
+import Viewer from 'v-viewer'
+import 'viewerjs/dist/viewer.css'
+Vue.use(Viewer)
+
 // 富文本
 import Editor from './components/editor/editor'
 import 'github-markdown-css/github-markdown.css';

@@ -78,12 +78,20 @@ export default [{
 		path: '/components',
 		name: 'components',
 		component: Layout,
-		redirect: '/editor',
+		redirect: '/upload',
 		meta: {
 			title: '组件',
 			icon: 'logo-buffer'
 		},
 		children: [{
+			path: 'upload',
+			name: 'upload',
+			meta: {
+				title: '文件上传',
+				icon: 'ios-cloud-upload'
+			},
+			component: () => import('@/view/upload/upload')
+		},{
 			path: 'editor',
 			name: 'editor',
 			meta: {

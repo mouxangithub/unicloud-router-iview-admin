@@ -33,6 +33,7 @@ function init() {
 				console.log(chalk.bold.red(" 请继续使用HBuilderx运行服务") + "\n");
 				console.log(chalk.yellow(" --------------- 鸣谢 ----------------"));
 				console.log(chalk.yellow("|                                     |"));
+				console.log(chalk.yellow("| 开源不易，需要鼓励                  |"));
 				console.log(chalk.yellow("| By: 落魄实习生（Mouxan）            |"));
 				console.log(chalk.yellow("| 如有其他问题请联系:                 |"));
 				console.log(chalk.yellow("|            QQ: 455171924            |"));
