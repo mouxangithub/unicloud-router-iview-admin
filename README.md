@@ -64,6 +64,7 @@
 
 以上方法都是基于[HBuilderX工具开发](https://uniapp.dcloud.io/quickstart?id=_1-%e9%80%9a%e8%bf%87-hbuilderx-%e5%8f%af%e8%a7%86%e5%8c%96%e7%95%8c%e9%9d%a2)的方法
 如是想通过[vue-cli构建](https://uniapp.dcloud.io/quickstart?id=_2-%e9%80%9a%e8%bf%87vue-cli%e5%91%bd%e4%bb%a4%e8%a1%8c)请自行参考官方文档进行调试。
+发布请修改运行基础路径
 
 # 变更日志
 [发行说明](https://gitee.com/mouxangitee/unicloud-router-iview-admin/releases) 中记录了每个发行版的详细信息更改。
