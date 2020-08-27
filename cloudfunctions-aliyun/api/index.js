@@ -18,6 +18,7 @@ exports.main = async (event, context) => {
 	try {
 		controller = require(__dirname + '/controller/' + url); // __dirname是为了兼容阿里云
 	} catch (err) {
+		return err
 		return {
 			code: 404,
 			msg: '请求错误: Request error',
@@ -28,5 +29,5 @@ exports.main = async (event, context) => {
 		data,
 		token,
 		method
-	});
+	}, context);
 };

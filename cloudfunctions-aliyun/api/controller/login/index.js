@@ -1,14 +1,10 @@
 const admin = require('../../libs/index')
-module.exports = {
-	main: async (event) => {
-		let {
-			data,
-			token,
-			method
-		} = event;
-		return await admin.login({
-			...data,
-			queryField: ['username']
-		});
-	}
+exports.main = async (event, context) => {
+	let {
+		data
+	} = event;
+	return await admin.login({
+		...data,
+		queryField: ['username']
+	});
 }

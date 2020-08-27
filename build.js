@@ -18,17 +18,18 @@ function init() {
 			space: true,
 		});
 		console.log(
-			chalk.blue("┏ 正在使用安装云开发NPM依赖 ------------------") + "\n"
+			chalk.blue("┏ 正在使用安装NPM依赖 -----------------") + "\n"
 		);
 		exec(
 			"cd cloudfunctions-aliyun/api && npm install",
 			(error, stdout, stderr) => {
+				console.log(stdout)
 				if (error) {
 					console.error(`执行安装云开发环境出错`);
 					return;
 				}
 				console.log(
-					"\n" + chalk.blue("┗ 安装完毕 ----------------------------") + "\n"
+					chalk.blue("┗ 安装完毕 ----------------------------") + "\n"
 				);
 				console.log(chalk.bold.red(" 请继续使用HBuilderx运行服务") + "\n");
 				console.log(chalk.yellow(" --------------- 鸣谢 ----------------"));
