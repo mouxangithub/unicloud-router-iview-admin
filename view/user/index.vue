@@ -186,11 +186,16 @@ export default {
 						title: '提示信息',
 						content: '是否删除这些?',
 						onOk: async () => {
-							try {
-								await batchdelete({ ids: this.ids });
-								this.$Message.success('删除成功');
-							} catch (error) {}
-							this.getList();
+							var index = this.ids.indexOf('5f06d4b604c20400012c32f4');
+							if (index >= 0) {
+								this.$Message.error('禁止操作');
+							} else {
+								try {
+									await batchdelete({ ids: this.ids });
+									this.$Message.success('删除成功');
+								} catch (error) {}
+								this.getList();
+							}
 						}
 					});
 				} else {
@@ -264,8 +269,8 @@ export default {
 		confirm(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
-					console.log(this.adminuser)
-					if (this.adminuser._id != "5f06d4b604c20400012c32f4") {
+					console.log(this.adminuser);
+					if (this.adminuser._id != '5f06d4b604c20400012c32f4') {
 						this.modal_loading = true;
 						try {
 							this.adminuser.status = this.adminuser.status ? 0 : 1;

@@ -1,6 +1,6 @@
 {
 	"name": "unicloud-router-iview-admin",
-	"version": "2.2.0",
+	"version": "2.5.0",
 	"description": "> 一个更为简洁的[后台管理系统](http://mouxangitee.gitee.io/unicloud-router-iview-admin/#/)，专为 [uni-app](https://uniapp.dcloud.io/) 量身打造",
 	"main": "main.js",
 	"bugs": {
@@ -15,6 +15,8 @@
 		"url": "https://gitee.com/mouxangitee/unicloud-router-iview-admin.git"
 	},
 	"dependencies": {
+		"axios": "^0.20.0",
+		"axios-unicloud": "^0.0.3",
 		"cfonts": "^2.8.4",
 		"chalk": "^4.1.0",
 		"github-markdown-css": "^4.0.0",
@@ -22,6 +24,7 @@
 		"uni-simple-router": "^1.5.3",
 		"v-viewer": "^1.5.1",
 		"view-design": "^4.2.0-rc.1",
+		"vuedraggable": "^2.24.1",
 		"wangeditor": "^3.1.1"
 	}
 }

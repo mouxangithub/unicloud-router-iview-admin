@@ -1,6 +1,6 @@
 <template>
 	<Card>
-		<upload v-model="imglist" :isUpcloud="false" :more="true" />
+		<upload v-model="imglist" :isUpcloud="false" :more="true" @input="change" />
 		<div style="margin-top: 30px;">
 			该组件使用方式: 使用v-model双向绑定传出imglist（url：图片链接，status：图片状态（finished完成，uploading正在上传），percent：上传进度百分比），isUpcloud是否上传至云存储（阿里云暂不支持前端进行删除云存储，可编写云函数进行删除），more是否多图上传，preview是否使用预览，delete是否显示删除按钮
 		</div>
@@ -25,6 +25,11 @@
 		},
 		components: {
 			upload
+		},
+		methods: {
+			change(e) {
+				console.log(e)
+			}
 		}
 	}
 </script>

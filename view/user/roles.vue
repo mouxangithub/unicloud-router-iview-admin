@@ -153,11 +153,16 @@ export default {
 					title: '提示信息',
 					content: '是否删除这些?',
 					onOk: async () => {
-						try {
-							await batchdelete({ ids: this.ids });
-							this.$Message.success('删除成功');
-						} catch (error) {}
-						this.getList();
+						var index = this.ids.indexOf('5ec1f715f8eeb6004dc291f6');
+						if (index >= 0) {
+							this.$Message.error('禁止操作');
+						} else {
+							try {
+								await batchdelete({ ids: this.ids });
+								this.$Message.success('删除成功');
+							} catch (error) {}
+							this.getList();
+						}
 					}
 				});
 			} else {

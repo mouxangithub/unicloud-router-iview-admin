@@ -1,51 +1,18 @@
-import request from '@/libs/request'
-var url = 'user/index'
+import {
+	post,
+	get,
+	deleted,
+	put
+} from '@/libs/axios'
 
-// 获取用户列表
-export const getAdminUserList = (data) => {
-	return request({
-		url,
-		method: 'GET',
-		data
-	})
-}
+export const getAdminUserList = data => get("user/index", data)
 
-export const deleteAdminUser = (data) => {
-	return request({
-		url,
-		method: 'DELETE',
-		data
-	})
-}
+export const deleteAdminUser = data => deleted("user/index", data)
 
-export const getAdminUser = (data) => {
-	return request({
-		url,
-		method: 'GETONE',
-		data
-	})
-}
+export const getAdminUser = data => get("user/index", data)
 
-export const batchdelete = (data) => {
-	return request({
-		url,
-		method: 'BATCHDELETE',
-		data
-	})
-}
+export const batchdelete = data => deleted("user/index", data)
 
-export const addAdminUser = (data) => {
-	return request({
-		url,
-		method: 'POST',
-		data
-	})
-}
+export const addAdminUser = data => post("user/index", data)
 
-export const editAdminUser = (data) => {
-	return request({
-		url,
-		method: 'EDIT',
-		data
-	})
-}
+export const editAdminUser = data => put("user/index", data)

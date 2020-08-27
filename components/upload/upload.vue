@@ -1,32 +1,38 @@
 <template>
 	<div style="display: flex;">
-		<div class="demo-upload-list" v-for="(item, index) in value" :key="index">
-			<div :id="'img' + index" v-if="item.status === 'finished'" v-viewer>
-				<image :src="item.url" />
-				<div class="demo-upload-list-cover">
-					<Icon v-if="preview" type="ios-eye-outline" @click.native="previewImg(index)"></Icon>
-					<Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
+		<draggable v-model="imglist">
+			<div class="demo-upload-list" v-for="(item, index) in imglist" :key="index">
+				<div :id="'img' + index" v-if="item.status === 'finished'" v-viewer>
+					<image :src="item.url" />
+					<div class="demo-upload-list-cover">
+						<Icon v-if="preview" type="ios-eye-outline" @click.native="previewImg(index)"></Icon>
+						<Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
+					</div>
+				</div>
+				<div v-else>
+					<i-circle
+						v-if="item.percent || item.percent == 0"
+						:size="size"
+						:percent="item.percent"
+						:stroke-color="item.percent == 100 ? '#5cb85c' : '#2db7f5'"
+						style="margin-top: 10px;"
+					>
+						<Icon v-if="item.percent == 100" type="md-cloud-done" size="35" style="color:#5cb85c" />
+						<span v-else style="font-size:18px">{{ item.percent }}%</span>
+					</i-circle>
 				</div>
 			</div>
-			<div v-else>
-				<i-circle
-					v-if="item.percent || item.percent == 0"
-					:size="size"
-					:percent="item.percent"
-					:stroke-color="item.percent == 100 ? '#5cb85c' : '#2db7f5'"
-					style="margin-top: 10px;"
-				>
-					<Icon v-if="item.percent == 100" type="md-cloud-done" size="35" style="color:#5cb85c" />
-					<span v-else style="font-size:18px">{{ item.percent }}%</span>
-				</i-circle>
-			</div>
-		</div>
+		</draggable>
 		<div class="upload" @tap="upload"><Icon type="ios-camera" size="25" /></div>
 	</div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
 export default {
+	components: {
+		draggable
+	},
 	props: {
 		// 图片集合，必传
 		value: {
@@ -56,8 +62,15 @@ export default {
 	},
 	data() {
 		return {
-			size: 60
+			size: 60,
+			imglist: this.value
 		};
+	},
+	watch: {
+		imglist(e) {
+			this.$emit('input', e);
+			this.$emit('change', e);
+		}
 	},
 	methods: {
 		// 删除图片
@@ -69,10 +82,9 @@ export default {
 				onOk: async () => {
 					// 阿里云不支持前端操作删除云存储，请自行封装云函数
 					// if(this.isUpcloud) {
-					// 	var res = await uniCloud.deleteFile({fileList:[that.value[id].url]})
+					// 	var res = await uniCloud.deleteFile({fileList:[that.imglist[id].url]})
 					// }
-					that.value.splice(id, 1);
-					that.$emit('input', that.value);
+					that.imglist.splice(id, 1);
 				}
 			});
 		},
@@ -88,27 +100,25 @@ export default {
 				count: this.more ? 2 : 1,
 				async success(res) {
 					if (res.tempFilePaths.length > 0) {
-						var updind = that.value.length;
+						var updind = that.imglist.length;
 						for (var i = 0; i < res.tempFilePaths.length; i++) {
 							var filePath = res.tempFilePaths[i];
 							if (that.isUpcloud) {
 								var index = updind + i;
 								// 上传至云存储
-								that.value.push({
+								that.imglist.push({
 									url: '',
 									percent: 0,
 									status: 'uploading'
 								});
-								that.$emit('input', that.value);
 								that.upcloud(filePath, index);
 							} else {
 								// 暂不上传
-								that.value.push({
+								that.imglist.push({
 									url: filePath,
 									percent: 100,
 									status: 'finished'
 								});
-								that.$emit('input', that.value);
 							}
 						}
 					}
@@ -122,13 +132,11 @@ export default {
 				filePath,
 				cloudPath: 'test.jpg',
 				onUploadProgress: function(progressEvent) {
-					that.value[index].percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-					that.$emit('input', that.value);
+					that.imglist[index].percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
 				},
 				success(result) {
-					that.value[index].status = 'finished';
-					that.value[index].url = result.fileID;
-					that.$emit('input', that.value);
+					that.imglist[index].status = 'finished';
+					that.imglist[index].url = result.fileID;
 				}
 			});
 		}

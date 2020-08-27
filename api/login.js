@@ -1,25 +1,13 @@
-import request from '@/libs/request'
+import {
+	post,
+	get
+} from '@/libs/axios'
 
 // 登录
-export const login = (data) => {
-	return request({
-		url: 'login/index',
-		data
-	})
-}
+export const login = data => post("login/index", data)
 
 // 退出登录
-export const logout = (data) => {
-	return request({
-		url: 'login/logout',
-		data
-	})
-}
+export const logout = params => get("login/logout", params)
 
 // 获取用户信息
-export const getAdminUserInfo = (data) => {
-	return request({
-		url: 'user/userInfo',
-		data
-	})
-}
+export const getAdminUserInfo = params => get("user/userInfo", params)
