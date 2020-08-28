@@ -1,6 +1,6 @@
 <h1> unicloud-router-iview-admin </h1>
 
-[English Docs](README.en.md)  |  [中文文档](README.md)
+[中文文档](README.md) | [English Docs](README.en.md)
 
 A concise background management system template，Background management system based on uniCloud + IView + Uni-Simple-Router
 
@@ -13,79 +13,80 @@ Demo：[unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router
   <img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/fork.svg?theme=dark' alt='fork'></img>
 </a>
 
-## 因最近业务比较忙，所以更新速度可能会比较慢，作者暂未放弃更新，感谢大家支持，并且因为是个人开发，很多时候考虑没那么周全，所以大家如果有什么好的点子可以联系我（QQ：455171924；WX：s455171924）进行开发加入哦
+## Due to the busy business recently, the update speed may be slow. The author has not given up updating yet. Thank you for your support。
+## And because it's a personal study, a lot of times it's less well thought out, So if you have any good ideas you can contact me (QQ：455171924;WX：s455171924),Tell me your precious thoughts。
 
-# 特别感谢
+# Special Thanks
 
-首先我们先感谢一下[uni-simple-router](http://hhyang.cn/)的作者和[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)提供的开源模板让我学习，本人研发封装的这一套都是基于[uni-simple-router](http://hhyang.cn/)的路由模式，配合[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)封装的后台模板。说明：该封装方法并非我原创，我也是从[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)学习搬砖过来的。如有其他的问题可私信我：QQ：455171924。
+First of all, let me thank developer of [uni-simple-router](http://hhyang.cn/) or developer of [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) , Open source templates provided for me to learn, The package I developed and packaged is based on the routing mode of [uni-simple-router](http://hhyang.cn/)，Cooperate with [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) encapsulated background template。Note: the packaging method is not my original, I am learning from [iView - admin2.0] (https://lison16.github.io/iview-admin-doc/#/) to move the brick。If you have any other questions, please let me know。
 
 # 目录结构
 ```
-├── api                     ajax请求
-├── assets                  项目静态资源
-|   ├── icons               自定义图标资源
-|   └── images              图片资源
-├── cloudfunctions-aliyun   配置云开发目录
-|   └── api                 服务端api云函数
-|       ├── config          配置项
-|       ├── controller      业务逻辑函数
-|       ├── libs            函数集
-|       └── index.js        中控
-├── components              组件资源
-├── config                  项目配置
-├── layout                  布局资源
-├── libs                    封装的函数方法
-├── unicloud-admin           Node.js运行脚本
-├── router                  路由配置
-├── store                   Vuex配置
-├── view                    页面视图文件
-├── App.vue                 全局生命周期和全局样式配置
-├── manifest.json           应用配置
-├── main.js                 vue初始化入口
-├── pages.json              配置页面路由（使用uni-smail-router后可只配置一个存在的页面。后期无需频繁配置）
-└── README.md               说明文档 
+├── api                     AJAX Requests
+├── assets                  Static Resources
+|   ├── icons               Custom icon resources
+|   └── images              Static image
+├── cloudfunctions-aliyun   Configure the cloud development directory
+|   └── api                 Server API cloud functions
+|       ├── config          Configuration item
+|       ├── common          Common plug-in module
+|       ├── controller      Business logic function
+|       ├── libs            Set of functions
+|       └── index.js        Root folder
+├── components              components
+├── config                  Configuration item
+├── layout                  layout
+├── libs                    Set of functions
+├── build.js                Node.js runs the script
+├── router                  Route configuration
+├── store                   Vuex configuration
+├── view                    Page layout view
+├── App.vue                 Global life cycle and global style configuration
+├── manifest.json           Application configuration
+├── main.js                 Vue initializes the entry
+├── pages.json              Configure page routing (With uni-Smail-Router, you only need to configure one existing page.No frequent configuration in later stage)
+└── README.md               README 
 ```
 
-# 安装步骤
+# Installation procedure
 
-推荐使用yarn来替换npm，具体使用安装方法自行百度
+It is recommended to use YARN to replace NPM with the specific installation method
 
-## 方法一：
-* 使用[uniapp插件市场](https://ext.dcloud.net.cn/plugin?id=1639)一键工程导入
-* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 yarn(npm) run build 进行下载依赖包
-* 创建或选择云服务空间,进入manifest.json可视化重新获取appid
-* 右键上传cloudfunctions-aliyun文件夹下所有云函数
-* 选择/cloudfunctions-aliyun/db_init.json右键初始化云数据库
-* 运行到浏览器
+## Plan A:
+* Use [uniapp plug-in market] (HTTP: / / https://ext.dcloud.net.cn/plugin?Id =1639) one-click project import
+* Select the project, right-click -> to open the directory using the command line window, or use the built-in CMD to enter the project to run yarn(NPM) run build to download the dependency package
+* To create or select the cloud service space, go to manifest.json visualization to retrieve the AppID
+* Right-click to upload all cloudfunctions-aliyun
+* Select /cloudfunctions-aliyun/db_init.json to right-click to initialize the cloud database
+* Use HBuilderx to run to the browser
 
-## 方法二：
-* 使用[git工具](https://gitee.com/mouxangitee/unicloud-router-iview-admin)拉取
-* 复制源码到新建的项目
-* 选择项目，右键->使用命令行窗口打开所在目录，或使用系统自带的CMD进入项目运行 yarn(npm) run build 进行下载依赖包
-* 创建或选择云服务空间,进入manifest.json可视化重新获取appid
-* 右键上传cloudfunctions-aliyun文件夹下所有云函数
-* 选择/cloudfunctions-aliyun/db_init.json右键初始化云数据库
-* 运行到浏览器
+## Plan B:
+* Using git tools (https://gitee.com/mouxangitee/unicloud-router-iview-admin) pull
+* Select the project, right-click -> to open the directory using the command line window, or use the built-in CMD to enter the project to run yarn(NPM) run build to download the dependency package
+* To create or select the cloud service space, go to manifest.json visualization to retrieve the AppID
+* Right-click to upload all cloudfunctions-aliyun
+* Select /cloudfunctions-aliyun/db_init.json to right-click to initialize the cloud database
+* Use HBuilderx to run to the browser
 
-以上方法都是基于[HBuilderX工具开发](https://uniapp.dcloud.io/quickstart?id=_1-%e9%80%9a%e8%bf%87-hbuilderx-%e5%8f%af%e8%a7%86%e5%8c%96%e7%95%8c%e9%9d%a2)的方法
-如是想通过[vue-cli构建](https://uniapp.dcloud.io/quickstart?id=_2-%e9%80%9a%e8%bf%87vue-cli%e5%91%bd%e4%bb%a4%e8%a1%8c)请自行参考官方文档进行调试。
-发布请修改运行基础路径
+The above methods are all based on the [HBuilderX](https://uniapp.dcloud.io/quickstart?id=_1-%e9%80%9a%e8%bf%87-hbuilderx-%e5%8f%af%e8%a7%86%e5%8c%96%e7%95%8c%e9%9d%a2) method
+If you want to go through [vue-cli build](https://uniapp.dcloud.io/quickstart?id=_2-%e9%80%9a%e8%bf%87vue-cli%e5%91%bd%e4%bb%a4%e8%a1%8c), please refer to the official documentation for debugging
+To publish, modify the run base path
 
 # 变更日志
-[发行说明](https://gitee.com/mouxangitee/unicloud-router-iview-admin/releases) 中记录了每个发行版的详细信息更改。
+
+[releases](https://gitee.com/mouxangitee/unicloud-router-iview-admin/releases) Detailed information changes are documented for each release。
 
 # 问题
-大家有问题可以在GIT的lssues提问，我会抽空帮大家解答：[提问贴](https://gitee.com/mouxangitee/unicloud-router-iview-admin/issues/I1HX8E)
 
-如有其他的问题可私信我：QQ：455171924
+You can ask questions as we know in Lssues of git, and I'll take the time to answer them for you, [Issues](https://gitee.com/mouxangitee/unicloud-router-iview-admin/issues/I1HX8E)
 
 # 注意
-本项目使用了vue-router，所以可以不用一直在pages.json编写路由，应在“/router/router”router。但pages.json必须配置一项存在的页面，不然会报错
+vue-router was used for this project, So you don't have to write the route in pages.json all the router, The configuration should be under "/router/router"。But pages.json must configure a page where an item exists, otherwise it will report an error
 
 # 声明
-该项目为MIT协议开源项目，可商用，但出现的一切后果与作者无关，与该开源项目无关，切记！！！
+This project is an OPEN source MIT protocol project, it can be used commercially, but all the consequences have nothing to do with the author, nothing to do with the open source project, remember!!
 
-如果觉得这个项目可以的话，麻烦大家动动您的小手帮我点一下上面的star，感谢
+f you think this project is ok, please touch your hands and help me to click the star above, thank you
 
 <p align="center">
   <a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin'>
