@@ -2,9 +2,9 @@
 
 [English Docs](README.en.md)  |  [中文文档](README.md)
 
-一个简洁的后台管理系统模板，基于 uniCloud + iview + uni-simple-router 的后台管理系统
+A concise background management system template，Background management system based on uniCloud + IView + Uni-Simple-Router
 
-示范模板：[unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router-iview-admin)
+Demo：[unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router-iview-admin)
 
 <a href='https://gitee.com/mouxangitee/unicloud-router-iview-admin/stargazers'>
   <img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/star.svg?theme=dark' alt='star'></img>
