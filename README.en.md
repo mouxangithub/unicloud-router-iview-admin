@@ -72,18 +72,18 @@ The above methods are all based on the [HBuilderX](https://uniapp.dcloud.io/quic
 If you want to go through [vue-cli build](https://uniapp.dcloud.io/quickstart?id=_2-%e9%80%9a%e8%bf%87vue-cli%e5%91%bd%e4%bb%a4%e8%a1%8c), please refer to the official documentation for debugging
 To publish, modify the run base path
 
-# 变更日志
+# Update log
 
 [releases](https://gitee.com/mouxangitee/unicloud-router-iview-admin/releases) Detailed information changes are documented for each release。
 
-# 问题
+# Issues
 
 You can ask questions as we know in Lssues of git, and I'll take the time to answer them for you, [Issues](https://gitee.com/mouxangitee/unicloud-router-iview-admin/issues/I1HX8E)
 
-# 注意
+# Notice
 vue-router was used for this project, So you don't have to write the route in pages.json all the router, The configuration should be under "/router/router"。But pages.json must configure a page where an item exists, otherwise it will report an error
 
-# 声明
+# Statement
 This project is an OPEN source MIT protocol project, it can be used commercially, but all the consequences have nothing to do with the author, nothing to do with the open source project, remember!!
 
 f you think this project is ok, please touch your hands and help me to click the star above, thank you
