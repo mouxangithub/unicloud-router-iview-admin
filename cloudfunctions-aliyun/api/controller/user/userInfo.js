@@ -1,13 +1,13 @@
-const db = uniCloud.database();
-const admin = require('../../libs/index')
+'use strict';
 exports.main = async (event, context) => {
 	let {
 		data,
 		token,
-		method
+		tool,
+		db
 	} = event;
 	var collection = db.collection('admin')
-	var payload = await admin.checkToken(token)
+	var payload = await tool.admin.checkToken(token)
 	var res = (await collection.aggregate()
 		// 关联权限表
 		.lookup({

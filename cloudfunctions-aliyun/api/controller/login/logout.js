@@ -1,12 +1,12 @@
-const admin = require('../../libs/index')
+'use strict';
 exports.main = async (event, context) => {
 	let {
 		data,
 		token,
-		method
+		tool
 	} = event;
 	try {
-		var res = await admin.logout(token)
+		var res = await tool.admin.logout(token)
 		if (res.code === 0) {
 			return res
 		} else {

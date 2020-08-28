@@ -132,18 +132,22 @@ export default {
 		},
 		// 删除
 		async deleted(id) {
-			var that = this;
-			this.$Modal.confirm({
-				title: '提示信息',
-				content: '是否删除?',
-				onOk: async () => {
-					try {
-						await deleteRoles({ id });
-						this.$Message.success('删除成功');
-					} catch (error) {}
-					this.getList();
-				}
-			});
+			if (id == '5ec1f715f8eeb6004dc291f6') {
+				this.$Message.error('请勿删除该权限');
+			} else {
+				var that = this;
+				this.$Modal.confirm({
+					title: '提示信息',
+					content: '是否删除?',
+					onOk: async () => {
+						try {
+							await deleteRoles({ id });
+							this.$Message.success('删除成功');
+						} catch (error) {}
+						this.getList();
+					}
+				});
+			}
 		},
 		// 批量删除
 		async batchDe() {
@@ -155,7 +159,7 @@ export default {
 					onOk: async () => {
 						var index = this.ids.indexOf('5ec1f715f8eeb6004dc291f6');
 						if (index >= 0) {
-							this.$Message.error('禁止操作');
+							this.$Message.error('请勿操作该权限');
 						} else {
 							try {
 								await batchdelete({ ids: this.ids });

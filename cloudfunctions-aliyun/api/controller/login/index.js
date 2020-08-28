@@ -1,9 +1,10 @@
-const admin = require('../../libs/index')
+'use strict';
 exports.main = async (event, context) => {
 	let {
-		data
+		data,
+		tool
 	} = event;
-	return await admin.login({
+	return await tool.admin.login({
 		...data,
 		queryField: ['username']
 	});

@@ -9,9 +9,11 @@ import 'wangeditor/release/wangEditor.min.css';
 export default {
 	name: 'Editor',
 	props: {
+		name: {
+			type: String
+		},
 		value: {
-			type: String,
-			default: ''
+			type: String
 		},
 		/**
 		 * 绑定的值的类型, enum: ['html', 'text']
@@ -40,12 +42,7 @@ export default {
 	},
 	computed: {
 		editorId() {
-			return `editor${this._uid}`;
-		}
-	},
-	methods: {
-		setHtml(val) {
-			this.editor.txt.html(val);
+			return `${this.name}`;
 		}
 	},
 	mounted() {
@@ -53,6 +50,7 @@ export default {
 		this.editor.customConfig.onchange = html => {
 			let text = this.editor.txt.text();
 			if (this.cache) localStorage.editorCache = html;
+			console.log(html);
 			this.$emit('input', this.valueType === 'html' ? html : text);
 			this.$emit('on-change', html, text);
 		};
@@ -60,8 +58,16 @@ export default {
 		// create这个方法一定要在所有配置项之后调用
 		this.editor.create();
 		// 如果本地有存储加载本地存储内容
-		let html = this.value || this.cache ? localStorage.editorCache : '';
+		let html = this.cache ? localStorage.editorCache : '';
 		if (html) this.editor.txt.html(html);
+		// 如果有value加载内容
+		if (this.value) {
+			if (this.valueType === 'html') {
+				this.editor.txt.html(this.value);
+			} else {
+				this.editor.txt.text(this.value);
+			}
+		}
 	}
 };
 </script>

@@ -1,7 +1,9 @@
+'use strict';
 exports.main = async (event) => {
 	let {
 		url,
-		token
+		token,
+		tool
 	} = event
 	let json = {
 		code: -1,
@@ -12,8 +14,7 @@ exports.main = async (event) => {
 		json.msg = 'ok';
 	} else {
 		// 除login外，其他函数需要判断token
-		const admin = require(__dirname + '/index')
-		var payload = await admin.checkToken(token)
+		var payload = await tool.admin.checkToken(token)
 		if (payload.code && payload.code > 0) {
 			return payload
 		} else {

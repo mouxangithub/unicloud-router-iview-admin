@@ -1,10 +1,11 @@
-const admin = require('../../libs/index')
-const db = uniCloud.database()
-const _ = db.command
+'use strict';
 exports.main = async (event, context) => {
 	let {
 		data,
-		method
+		method,
+		tool,
+		db,
+		_
 	} = event;
 	const collection = db.collection('admin')
 	switch (method) {
@@ -63,7 +64,7 @@ exports.main = async (event, context) => {
 			if (data._id) {
 				delete data._id;
 			}
-			data.password = admin.encryptPwd(data.password)
+			data.password = tool.admin.encryptPwd(data.password)
 			await collection.add(data);
 			return {
 				code: 0,
@@ -74,8 +75,8 @@ exports.main = async (event, context) => {
 			var id = data._id
 			delete data._id;
 			var res = await collection.doc(id).get();
-			if (admin.encryptPwd(data.password) != res.data[0].password) {
-				data.password = admin.encryptPwd(data.password)
+			if (tool.admin.encryptPwd(data.password) != res.data[0].password) {
+				data.password = tool.admin.encryptPwd(data.password)
 			}
 			await collection.doc(id).update(data);
 			return {

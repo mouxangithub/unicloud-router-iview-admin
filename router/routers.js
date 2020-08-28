@@ -90,7 +90,7 @@ export default [{
 				title: '文件上传',
 				icon: 'ios-cloud-upload'
 			},
-			component: () => import('@/view/upload/upload')
+			component: () => import('@/view/components/upload')
 		},{
 			path: 'editor',
 			name: 'editor',
@@ -98,7 +98,7 @@ export default [{
 				title: '富文本编辑器',
 				icon: 'ios-create'
 			},
-			component: () => import('@/components/editor/editor')
+			component: () => import('@/view/components/editor')
 		}]
 	},
 	{

@@ -1,11 +1,11 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "description": "云函数封装",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT"
+	"name": "api",
+	"version": "1.5.0",
+	"description": "统一云函数",
+	"main": "index.js",
+	"bugs": {
+		"email": "mouxan@163.com"
+	},
+	"author": "mouxan@163.com",
+	"license": "MIT"
 }

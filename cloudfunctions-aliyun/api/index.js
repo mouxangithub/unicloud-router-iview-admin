@@ -1,17 +1,33 @@
 'use strict';
+const db = uniCloud.database()
+const _ = db.command
 exports.main = async (event, context) => {
 	let url = event.url;
 	let data = event.data;
 	let token = event.uniIdToken;
 	let method = event.method;
+	// 工具包 common 为工具包目录
+	const tool = {
+		admin: require(__dirname + '/common/uni-id.js'),
+		openapi: require(__dirname + '/common/mp-cloud-openapi.js')
+	};
+	const before = require(__dirname + '/libs/before.js');
 	// 守卫拦截
-	const before = require(__dirname + '/libs/before');
-	let json = await before.main({
-		url,
-		token
-	});
-	if (json.code != 0) {
-		return json;
+	try {
+		let json = await before.main({
+			url,
+			token,
+			tool
+		});
+		if (json.code != 0) {
+			return json;
+		}
+	} catch (err) {
+		return err
+		return {
+			code: 404,
+			msg: '拦截出错: Intercept error',
+		}
 	}
 	// 加载业务函数
 	let controller;
@@ -28,6 +44,9 @@ exports.main = async (event, context) => {
 	return await controller.main({
 		data,
 		token,
-		method
+		method,
+		tool,
+		db,
+		_
 	}, context);
 };

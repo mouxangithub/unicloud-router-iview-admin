@@ -1,10 +1,11 @@
-const admin = require('../../libs/index')
-const db = uniCloud.database()
-const _ = db.command
+'use strict';
 exports.main = async (event, context) => {
 	let {
 		data,
-		method
+		method,
+		tool,
+		db,
+		_
 	} = event;
 	const collection = db.collection('roles')
 	switch (method) {
