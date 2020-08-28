@@ -1,5 +1,8 @@
 "use strict";
-
+/**
+ * 此函数为Uni-id云函数
+ * 使用方法详情观看官方文档： https://uniapp.dcloud.io/uniCloud/uni-id
+ */
 function e(e) {
 	return e && "object" == typeof e && "default" in e ? e.default : e
 }
@@ -130,13 +133,16 @@ function k(e, t) {
 		}
 	})
 }
-const x = uniCloud.database(),
-	j = x.collection(config.UserDB),
-	T = x.collection(config.VerifyDB);
+
 let O = {};
 try {
 	O = JSON.parse(r.readFileSync(n.resolve(__dirname, "../config/index.json")))
 } catch (e) {}
+
+var config = I()
+const x = uniCloud.database(),
+	j = x.collection(config.UserDB),
+	T = x.collection(config.VerifyDB);
 
 function I(e) {
 	const t = Object.assign(O, O[e || __ctx__.PLATFORM]) || {},
