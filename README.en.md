@@ -53,7 +53,7 @@ First of all, let me thank developer of [uni-simple-router](http://hhyang.cn/) o
 It is recommended to use YARN to replace NPM with the specific installation method
 
 ## Plan A:
-* Use [uniapp plug-in market] (HTTP: / / https://ext.dcloud.net.cn/plugin?Id =1639) one-click project import
+* Use [uniapp插件市场](https://ext.dcloud.net.cn/plugin?Id =1639) one-click project import
 * Select the project, right-click -> to open the directory using the command line window, or use the built-in CMD to enter the project to run yarn(NPM) run build to download the dependency package
 * To create or select the cloud service space, go to manifest.json visualization to retrieve the AppID
 * Right-click to upload all cloudfunctions-aliyun
@@ -61,7 +61,7 @@ It is recommended to use YARN to replace NPM with the specific installation meth
 * Use HBuilderx to run to the browser
 
 ## Plan B:
-* Using git tools (https://gitee.com/mouxangitee/unicloud-router-iview-admin) pull
+* Using git tools [unicloud-router-iview-admin](https://gitee.com/mouxangitee/unicloud-router-iview-admin) pull
 * Select the project, right-click -> to open the directory using the command line window, or use the built-in CMD to enter the project to run yarn(NPM) run build to download the dependency package
 * To create or select the cloud service space, go to manifest.json visualization to retrieve the AppID
 * Right-click to upload all cloudfunctions-aliyun
