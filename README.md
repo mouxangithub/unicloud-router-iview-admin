@@ -10,7 +10,7 @@
   <img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/fork.svg?theme=dark' alt='fork'></img>
 </a>
 
-## 因最近业务比较忙，所以更新速度可能会比较慢，作者暂未放弃更新，感谢大家支持
+## 因最近业务比较忙，所以更新速度可能会比较慢，作者暂未放弃更新，感谢大家支持，并且因为是个人开发，很多时候考虑没那么周全，所以大家如果有什么好的点子可以联系我（QQ：455171924；WX：s455171924）进行开发加入哦
 
 # 特别感谢
 
