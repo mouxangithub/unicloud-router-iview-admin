@@ -18,7 +18,7 @@ Demo：[unicloud-router-iview-admin](http://mouxangitee.gitee.io/unicloud-router
 
 # Special Thanks
 
-First of all, let me thank developer of [uni-simple-router](http://hhyang.cn/) or developer of [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) , Open source templates provided for me to learn, The package I developed and packaged is based on the routing mode of [uni-simple-router](http://hhyang.cn/)，Cooperate with [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) encapsulated background template。Note: the packaging method is not my original, I am learning from [iView - admin2.0] (https://lison16.github.io/iview-admin-doc/#/) to move the brick。If you have any other questions, please let me know。
+First of all, let me thank developer of [uni-simple-router](http://hhyang.cn/) or developer of [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) , Open source templates provided for me to learn, The package I developed and packaged is based on the routing mode of [uni-simple-router](http://hhyang.cn/)，Cooperate with [iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/) encapsulated background template。Note: the packaging method is not my original, I am learning from [iView - admin2.0](https://lison16.github.io/iview-admin-doc/#/) to move the brick。If you have any other questions, please let me know。
 
 # 目录结构
 ```
