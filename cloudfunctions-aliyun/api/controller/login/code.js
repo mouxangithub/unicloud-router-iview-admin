@@ -38,14 +38,14 @@ exports.main = async (event, context) => {
 				if (data.codeType == 'weixin') {
 					var list = {
 						mode: 'getUnlimited',
-						path: 'pages/index/index', // 必须是已上线已经存在的页面
+						path: 'pages/adminlogin/adminlogin', // 必须是已上线已经存在的页面
 						width: 330,
 						scene: res.id
 					};
 				} else {
 					var list = {
 						mode: 'imageSync',
-						content: 'pages/index/index?id=' + res.id
+						content: 'pages/adminlogin/adminlogin?codeId=' + res.id
 					};
 				}
 				var code = await codes({
@@ -57,7 +57,7 @@ exports.main = async (event, context) => {
 					code: 0,
 					msg: 'success',
 					data: {
-						data: code.data,
+						code,
 						codeId: res.id
 					}
 				}

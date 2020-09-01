@@ -8,23 +8,32 @@ exports.main = async (event, context) => {
 		tool,
 		config
 	} = event;
-	// 初始化 openapiWeixin
-	const openapiWeixins = tool.openapi.initWeixin({
-		appId: config['mp-weixin'].oauth.weixin.appid,
-		secret: config['mp-weixin'].oauth.weixin.appsecret
-	})
-	// 写入accessToken初始化
-	const {
-		accessToken
-	} = await openapiWeixins.auth.getAccessToken()
-	const openapiWeixin = tool.openapi.initWeixin({
-		appId: config['mp-weixin'].oauth.weixin.appid,
-		secret: config['mp-weixin'].oauth.weixin.appsecret,
-		accessToken
-	})
+	var mode = data.mode
+	delete data.mode
+	if (mode != 'imageSync') {
+		if (config['mp-weixin'].oauth.weixin.appid == 'weixin appid' || config['mp-weixin'].oauth.weixin.appsecret ==
+			'weixin appsecret' || !config['mp-weixin'].oauth.weixin.appid || !config['mp-weixin'].oauth.weixin.appsecret) {
+			return {
+				code: 404,
+				msg: '请配置正确的appid和appsecret'
+			}
+		}
+		// 初始化 openapiWeixin
+		const openapiWeixins = tool.openapi.initWeixin({
+			appId: config['mp-weixin'].oauth.weixin.appid,
+			secret: config['mp-weixin'].oauth.weixin.appsecret
+		})
+		// 写入accessToken初始化
+		const {
+			accessToken
+		} = await openapiWeixins.auth.getAccessToken()
+		const openapiWeixin = tool.openapi.initWeixin({
+			appId: config['mp-weixin'].oauth.weixin.appid,
+			secret: config['mp-weixin'].oauth.weixin.appsecret,
+			accessToken
+		})
+	}
 	try {
-		var mode = data.mode
-		delete data.mode
 		switch (mode) {
 			case 'createQRCode':
 				var res = await openapiWeixin.wxacode.createQRCode(data)

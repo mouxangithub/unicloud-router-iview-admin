@@ -18,11 +18,11 @@
 				</FormItem>
 			</div>
 			<div v-else class="formlist">
-				<image v-if="!codeloading && codeimg" style="width: 330px;height: 330px;" :src="codeimg" />
+				<image v-if="!codeloading" style="width: 330px;height: 330px;" :src="codeimg" />
 				<div v-if="codeloading" style="position: relative;width: 330px;height: 330px;">
 					<Spin fix>
-						<Icon type="ios-loading" size="18" class="demo-spin-icon-load"></Icon>
-						<div>正在生成二维码</div>
+						<Icon :type="codeerror ? 'ios-close-circle' : 'ios-loading'" size="18" :class="codeerror ? 'error' : 'demo-spin-icon-load'" />
+						<div :style="[{ color: codeerror ? 'red' : '' }]">{{ codeerror ? codeerror : '正在生成二维码' }}</div>
 					</Spin>
 				</div>
 				<div style="margin-top: 7px;text-align: center;color: #FFFFFF;font-size: 18px;">
@@ -57,7 +57,8 @@ export default {
 				password: [{ required: true, validator: validatePass, trigger: 'blur' }]
 			},
 			textType: 'password',
-			loading: false
+			loading: false,
+			codeerror: ''
 		};
 	},
 	methods: {
@@ -91,16 +92,22 @@ export default {
 			clearTimeout(loginType2);
 			if (!this.iscode) {
 				this.codeType = e || 'common';
+				this.codeimg = '';
+				this.codeerror = '';
 				this.codeloading = true;
 				try {
 					var res = await getcode({ codeType: this.codeType });
-					const arrayBuffer = new Uint8Array(res.data.buffer.data);
-					const base64 = uni.arrayBufferToBase64(arrayBuffer);
-					this.codeimg = 'data:' + res.data.contentType + ';base64,' + base64;
-					this.codeloading = false;
-					this.checkLoginType(res.codeId);
+					if (res.code.code == 0) {
+						const arrayBuffer = new Uint8Array(res.code.data.buffer.data);
+						const base64 = uni.arrayBufferToBase64(arrayBuffer);
+						this.codeimg = 'data:' + res.code.data.contentType + ';base64,' + base64;
+						this.codeloading = false;
+						this.checkLoginType(res.codeId);
+					} else {
+						this.codeerror = res.code.msg;
+					}
 				} catch (err) {
-					this.codeloading = false;
+					this.codeerror = '生成失败';
 				}
 			}
 		},
@@ -111,10 +118,10 @@ export default {
 		async checkLoginType(codeId) {
 			// 两秒查询一次，十分钟后删除循环
 			loginType = setInterval(async () => {
-				var res = await getcode({ codeId })
-				if(res.uid) {
+				var res = await getcode({ codeId });
+				if (res.uid) {
 					clearInterval(loginType);
-					await this.handleLogin({uid: res.uid})
+					await this.handleLogin({ uid: res.uid });
 				}
 			}, 2000);
 			loginType2 = setTimeout(() => {
@@ -128,6 +135,9 @@ export default {
 };
 </script>
 <style>
+.error {
+	color: red;
+}
 .demo-spin-icon-load {
 	animation: ani-demo-spin 1s linear infinite;
 }
