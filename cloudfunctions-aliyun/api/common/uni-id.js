@@ -3024,6 +3024,7 @@ var Lr = {
 			}
 		}
 	},
+	createToken: dr.createToken,
 	checkToken: dr.checkToken,
 	encryptPwd: A,
 	resetPwd: async function({

@@ -48,16 +48,10 @@ export default {
 		handleLogin({
 			dispatch,
 			commit
-		}, {
-			username,
-			password
-		}) {
+		}, userdata) {
 			return new Promise(async (resolve, reject) => {
 				try {
-					var res = await login({
-						username,
-						password
-					})
+					var res = await login(userdata)
 					commit('setUid', res.uid)
 					commit('setToken', res.token)
 					await dispatch('getUserInfo')

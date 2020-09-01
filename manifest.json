@@ -1,9 +1,9 @@
 {
     "name" : "unicloud-router-iview-admin",
-    "appid" : "__UNI__4F4C226",
+    "appid" : "",
     "description" : "一个更为简洁的后台管理系统，专为 uni-app 云开发（uniCloud） 量身打造",
-    "versionName" : "v2.6.1",
-    "versionCode" : 261,
+    "versionName" : "3.0.0",
+    "versionCode" : 300,
     "transformPx" : false,
     "h5" : {
         "devServer" : {

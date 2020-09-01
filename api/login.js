@@ -11,3 +11,6 @@ export const logout = params => get("login/logout", params)
 
 // 获取用户信息
 export const getAdminUserInfo = params => get("user/userInfo", params)
+
+// 获取小程序二维码
+export const getcode = params => get("login/code", params)

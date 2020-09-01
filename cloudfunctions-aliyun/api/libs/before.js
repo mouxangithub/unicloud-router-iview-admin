@@ -12,6 +12,9 @@ exports.main = async (event) => {
 	if (url.indexOf('login/') == 0) {
 		json.code = 0;
 		json.msg = 'ok';
+	} else if (url.indexOf('common/') == 0) {
+		json.code = 0;
+		json.msg = 'ok';
 	} else {
 		// 除login外，其他函数需要判断token
 		var payload = await tool.admin.checkToken(token)

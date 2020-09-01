@@ -1,6 +1,9 @@
 'use strict';
 const db = uniCloud.database()
 const _ = db.command
+const openapi = require(__dirname + '/common/mp-cloud-openapi.js')
+const config = require(__dirname + '/config/index.json')
+const qr = require('qr-image');
 exports.main = async (event, context) => {
 	let url = event.url;
 	let data = event.data;
@@ -9,7 +12,8 @@ exports.main = async (event, context) => {
 	// 工具包 common 为工具包目录
 	const tool = {
 		admin: require(__dirname + '/common/uni-id.js'),
-		openapi: require(__dirname + '/common/mp-cloud-openapi.js')
+		qr,
+		openapi
 	};
 	const before = require(__dirname + '/libs/before.js');
 	// 守卫拦截
@@ -45,6 +49,7 @@ exports.main = async (event, context) => {
 		data,
 		token,
 		method,
+		config,
 		tool,
 		db,
 		_

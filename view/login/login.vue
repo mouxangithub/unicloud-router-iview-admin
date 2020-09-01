@@ -1,16 +1,36 @@
 <template>
 	<div class="page">
 		<Form :model="loginForm" :rules="rules" ref="loginForm" class="login-form" @keydown.enter.native="login('loginForm')">
-			<h2 class="title">用 户 登 录</h2>
-			<FormItem prop="username"><Input type="text" v-model="loginForm.username" placeholder="用户名" autocomplete="off" prefix="ios-contact" /></FormItem>
-			<FormItem prop="password">
-				<Input :type="textType" v-model="loginForm.password" placeholder="密码" autocomplete="off" prefix="ios-lock" icon="ios-eye" @on-click="changeType" />
-			</FormItem>
-			<FormItem>
-				<Button class="login-btn" :loading="loading" @click="login('loginForm')">
-					<span>{{ loading ? 'Loading...' : '登 录' }}</span>
-				</Button>
-			</FormItem>
+			<div @tap="changeMode" class="code">
+				<image v-if="iscode" src="@/assets/images/code.png" style="width: 40px;height: 40px;" />
+				<image v-else src="@/assets/images/login.png" style="width: 40px;height: 40px;" />
+			</div>
+			<h2 class="title">{{ iscode ? '用 户 登 录' : '扫 码 登 录' }}</h2>
+			<div v-if="iscode" class="formlist">
+				<FormItem prop="username"><Input type="text" v-model="loginForm.username" placeholder="用户名" autocomplete="off" prefix="ios-contact" /></FormItem>
+				<FormItem prop="password">
+					<Input :type="textType" v-model="loginForm.password" placeholder="密码" autocomplete="off" prefix="ios-lock" icon="ios-eye" @on-click="changeType" />
+				</FormItem>
+				<FormItem>
+					<Button class="login-btn" :loading="loading" @click="login('loginForm')">
+						<span>{{ loading ? 'Loading...' : '登 录' }}</span>
+					</Button>
+				</FormItem>
+			</div>
+			<div v-else class="formlist">
+				<image v-if="!codeloading && codeimg" style="width: 330px;height: 330px;" :src="codeimg" />
+				<div v-if="codeloading" style="position: relative;width: 330px;height: 330px;">
+					<Spin fix>
+						<Icon type="ios-loading" size="18" class="demo-spin-icon-load"></Icon>
+						<div>正在生成二维码</div>
+					</Spin>
+				</div>
+				<div style="margin-top: 7px;text-align: center;color: #FFFFFF;font-size: 18px;">
+					<text @click="getCode('common')" style="padding: 0 10px;" :style="[{ color: codeType == 'common' ? '#0081ff' : '#ffffff' }]">普通码</text>
+					|
+					<text @click="getCode('weixin')" style="padding: 0 10px;" :style="[{ color: codeType == 'weixin' ? '#0081ff' : '#ffffff' }]">小程序码</text>
+				</div>
+			</div>
 		</Form>
 		<h4 @click="mouxan()" style="text-align: center;color: #0081ff;margin-top: 30px;">Powered By Mouxan</h4>
 	</div>
@@ -19,9 +39,15 @@
 import Checker from '@/libs/checker.js';
 import { mapActions } from 'vuex';
 import { validateUse, validatePass } from '@/libs/checker';
+import { getcode } from '@/api/login.js';
+let loginType, loginType2;
 export default {
 	data() {
 		return {
+			iscode: true,
+			codeimg: '',
+			codeType: 'common',
+			codeloading: false,
 			loginForm: {
 				username: 'admin',
 				password: 'a123456'
@@ -35,7 +61,7 @@ export default {
 		};
 	},
 	methods: {
-		...mapActions(['handleLogin', 'getUserInfo']),
+		...mapActions(['handleLogin', 'getUserInfo', 'scanLogin']),
 		login: function(formName) {
 			this.$refs[formName].validate(async valid => {
 				if (valid) {
@@ -54,6 +80,47 @@ export default {
 		changeType() {
 			this.textType = this.textType === 'password' ? 'text' : 'password';
 		},
+		changeMode() {
+			this.iscode = !this.iscode;
+			this.getCode();
+			clearInterval(loginType);
+			clearTimeout(loginType2);
+		},
+		async getCode(e) {
+			clearInterval(loginType);
+			clearTimeout(loginType2);
+			if (!this.iscode) {
+				this.codeType = e || 'common';
+				this.codeloading = true;
+				try {
+					var res = await getcode({ codeType: this.codeType });
+					const arrayBuffer = new Uint8Array(res.data.buffer.data);
+					const base64 = uni.arrayBufferToBase64(arrayBuffer);
+					this.codeimg = 'data:' + res.data.contentType + ';base64,' + base64;
+					this.codeloading = false;
+					this.checkLoginType(res.codeId);
+				} catch (err) {
+					this.codeloading = false;
+				}
+			}
+		},
+		/**
+		 * 轮询查询是否扫描确认登录
+		 * @param {Object} codeId
+		 */
+		async checkLoginType(codeId) {
+			// 两秒查询一次，十分钟后删除循环
+			loginType = setInterval(async () => {
+				var res = await getcode({ codeId })
+				if(res.uid) {
+					clearInterval(loginType);
+					await this.handleLogin({uid: res.uid})
+				}
+			}, 2000);
+			loginType2 = setTimeout(() => {
+				clearInterval(loginType);
+			}, 600000);
+		},
 		mouxan() {
 			window.open('https://gitee.com/mouxangitee', '_blank');
 		}
@@ -61,6 +128,20 @@ export default {
 };
 </script>
 <style>
+.demo-spin-icon-load {
+	animation: ani-demo-spin 1s linear infinite;
+}
+@keyframes ani-demo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
 .page {
 	background: url('@/assets/images/bg.jpg');
 	background-size: 100%;
@@ -71,7 +152,26 @@ export default {
 	padding: 0;
 }
 
+.code {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	background-color: #555555;
+	border-bottom-left-radius: 50%;
+	border-top-right-radius: 20px;
+	padding: 5px;
+}
+
+.formlist {
+	margin-top: 20px;
+}
+
 .login-form {
+	position: relative;
 	width: 400px;
 	/* 容器自动水平居中 */
 	margin: 0px auto;
@@ -79,14 +179,13 @@ export default {
 	margin-top: calc((100vh - 50vh) / 2);
 	border-radius: 20px;
 	background-clip: padding-box;
-	padding: 35px 35px 15px 35px;
+	padding: 35px 35px 15px;
 	background: #23232e;
 	border: 1px solid #23232e;
 	box-shadow: 0 0 10px #000;
 }
 
 .title {
-	margin: 0px auto 40px auto;
 	text-align: center;
 	font-size: 33px;
 	color: #0081ff;
