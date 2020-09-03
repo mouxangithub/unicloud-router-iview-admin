@@ -53,7 +53,6 @@ export default {
 				try {
 					var res = await login(userdata)
 					commit('setUid', res.uid)
-					commit('setToken', res.token)
 					await dispatch('getUserInfo')
 					Notice.success({
 						title: '登录成功'

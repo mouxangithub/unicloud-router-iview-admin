@@ -1865,7 +1865,47 @@ const dr = {
 			tokenExpired: Date.now() + 1e3 * t.tokenExpiresIn
 		}
 	},
-	refreshToken: function() {},
+	refreshToken: async function(e) {
+		const r = Ne(e)
+		if (!r) return {
+			code: 30204,
+			msg: "非法token"
+		}
+		const n = await j.doc(r.uid).get();
+		if (!n.data || 0 === n.data.length || !n.data[0].token) return {
+			code: 30202,
+			msg: "token不合法，请重新登录"
+		};
+		const o = n.data[0];
+		if (1 === o.status) return {
+			code: 10001,
+			msg: "账号已禁用"
+		};
+		let i = o.token;
+		var ti = i.indexOf(e)
+		const ed = await this.createToken({
+			_id: r.uid
+		})
+		if ("string" == typeof i && (i = [i]), -1 === ti) {
+			return {
+				code: 30204,
+				msg: "非法token"
+			}
+		} else {
+			// 替换旧的token
+			i.splice(ti, 1, ed.token);
+			await j.doc(r.uid).update({
+				last_login_date: (new Date).getTime(),
+				last_login_ip: __ctx__.CLIENTIP,
+				token: i
+			});
+			return {
+				code: 0,
+				msg: "token刷新成功",
+				data: ed
+			}
+		}
+	},
 	checkToken: async function(e) {
 		const t = I();
 		try {
@@ -3025,6 +3065,7 @@ var Lr = {
 		}
 	},
 	createToken: dr.createToken,
+	refreshToken: dr.refreshToken,
 	checkToken: dr.checkToken,
 	encryptPwd: A,
 	resetPwd: async function({

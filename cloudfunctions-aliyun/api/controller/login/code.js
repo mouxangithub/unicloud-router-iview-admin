@@ -17,6 +17,12 @@ exports.main = async (event, context) => {
 		case 'get':
 			if (data.codeId) {
 				var res = (await collection.doc(data.codeId).get()).data[0]
+				if (!res) {
+					return {
+						code: 500,
+						msg: 'codeId不存在'
+					}
+				}
 				if (res.uid) {
 					await collection.doc(data.codeId).remove();
 				}
@@ -38,7 +44,7 @@ exports.main = async (event, context) => {
 				if (data.codeType == 'weixin') {
 					var list = {
 						mode: 'getUnlimited',
-						path: 'pages/adminlogin/adminlogin', // 必须是已上线已经存在的页面
+						path: 'pages/adminlogin/adminlogin', // 必须是已线上已经存在的页面
 						width: 330,
 						scene: res.id
 					};

@@ -24,9 +24,12 @@ axios.interceptors.response.use(
 		var data = res.data
 		if (data.code === 0) {
 			if (data.token) {
-				return Promise.resolve(data);
-			} else {
+				store.commit('setToken', data.token)
+			}
+			if (data.data) {
 				return Promise.resolve(data.data);
+			} else {
+				return Promise.resolve(data);
 			}
 		} else if (data.code === 1302) {
 			store.dispatch('handleLogOut')
