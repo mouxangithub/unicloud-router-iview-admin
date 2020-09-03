@@ -62,7 +62,6 @@ exports.main = async (event, context) => {
 			data: res
 		});
 	} catch (err) {
-		return err
 		return {
 			code: 404,
 			msg: '响应拦截出错: Response interception error',

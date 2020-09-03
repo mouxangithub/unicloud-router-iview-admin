@@ -1865,6 +1865,9 @@ const dr = {
 			tokenExpired: Date.now() + 1e3 * t.tokenExpiresIn
 		}
 	},
+	decryptToken: async function(e) {
+		return Ne(e)
+	},
 	refreshToken: async function(e) {
 		const r = Ne(e)
 		if (!r) return {
@@ -3065,6 +3068,7 @@ var Lr = {
 		}
 	},
 	createToken: dr.createToken,
+	decryptToken: dr.decryptToken,
 	refreshToken: dr.refreshToken,
 	checkToken: dr.checkToken,
 	encryptPwd: A,
