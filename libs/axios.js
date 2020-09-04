@@ -5,7 +5,13 @@ import {
 import store from '../store';
 import router from '@/router'
 
-// 配置基础函数（该项目使用为单一云函数，所以封装方式为基础云函数）
+/**
+ * 云函数模式single为单一云函数，many为多云函数
+ * 多云函数不需要配baseCloud基础云函数
+ * 当配置了baseCloud没配置module时，自动匹配为单一云函数，若二者都没配默认为uni.request请求
+ */
+axios.defaults.module = 'single'
+// 配置基础函数
 axios.defaults.baseCloud = 'api'
 
 //添加请求拦截器

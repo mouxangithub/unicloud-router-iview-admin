@@ -6,7 +6,19 @@ import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import store from '@/store';
 import config from '@/config'
+import VueCodemirror from 'vue-codemirror'
+ 
+// require styles
+import 'codemirror/lib/codemirror.css'
 Vue.use(ViewUI);
+ 
+// require more codemirror resource...
+ 
+// you can set default global options and events when use
+Vue.use(VueCodemirror, /* { 
+  options: { theme: 'base16-dark', ... },
+  events: ['scroll', ...]
+} */)
 
 ViewUI.Message.config({
 	top: 50,

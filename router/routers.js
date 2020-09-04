@@ -99,6 +99,14 @@ export default [{
 				icon: 'ios-create'
 			},
 			component: () => import('@/view/components/editor')
+		},{
+			path: 'codemirror',
+			name: 'codemirror',
+			meta: {
+				title: '代码编辑器',
+				icon: 'md-code'
+			},
+			component: () => import('@/view/components/codemirror')
 		}]
 	},
 	{
