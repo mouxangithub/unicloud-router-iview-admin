@@ -1,6 +1,7 @@
 import {
 	post,
-	get
+	get,
+	deleted
 } from '@/libs/axios'
 
 // 登录
@@ -14,3 +15,6 @@ export const getAdminUserInfo = params => get("user/userInfo", params)
 
 // 获取小程序二维码
 export const getcode = params => get("login/code", params)
+
+// 到时删除code
+export const decode = params => deleted("login/code", params)

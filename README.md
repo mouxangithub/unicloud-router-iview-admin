@@ -16,6 +16,8 @@
 ## 因最近业务比较忙, 所以更新速度可能会比较慢, 作者暂未放弃更新, 感谢大家支持。
 ## 因为是个人开发, 很多时候考虑没那么周全, 所以大家如果有什么好的点子可以联系我（QQ：455171924；WX：s455171924）, 告诉我你宝贵的想法.
 
+## 2020.9.4 新增移动端扫码登录后台，移动端示范请前往[unicloud-app](https://gitee.com/mouxangitee/unicloud-app)查看，支持移动端h5扫码登录，app扫码登录，众小程序扫码登录（普通码理论上都可以，具体只测试了app和小程序和h5，微信小程序二维码仅微信小程序可登录）
+
 # 特别感谢
 
 首先我们先感谢一下[uni-simple-router](http://hhyang.cn/)的作者和[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)提供的开源模板让我学习，本人研发封装的这一套都是基于[uni-simple-router](http://hhyang.cn/)的路由模式，配合[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)封装的后台模板。说明：该封装方法并非我原创，我也是从[iView-admin2.0](https://lison16.github.io/iview-admin-doc/#/)学习搬砖过来的。如有其他的问题可私信我。

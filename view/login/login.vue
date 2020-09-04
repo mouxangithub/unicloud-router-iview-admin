@@ -39,7 +39,7 @@
 import Checker from '@/libs/checker.js';
 import { mapActions } from 'vuex';
 import { validateUse, validatePass } from '@/libs/checker';
-import { getcode } from '@/api/login.js';
+import { getcode, decode } from '@/api/login.js';
 let loginType, loginType2;
 export default {
 	data() {
@@ -118,14 +118,23 @@ export default {
 		async checkLoginType(codeId) {
 			// 两秒查询一次，十分钟后删除循环
 			loginType = setInterval(async () => {
-				var res = await getcode({ codeId });
-				if (res.uid) {
+				try {
+					var res = await getcode({ codeId });
+					console.log(res);
+					if (res.uid) {
+						clearInterval(loginType);
+						await this.handleLogin({ uid: res.uid });
+					}
+				} catch (err) {
 					clearInterval(loginType);
-					await this.handleLogin({ uid: res.uid });
+					this.codeloading = true;
+					this.codeerror = err;
 				}
 			}, 2000);
-			loginType2 = setTimeout(() => {
+			// 到时执行删除，防止数据库内容溢出
+			loginType2 = setTimeout(async () => {
 				clearInterval(loginType);
+				await decode({ codeId })
 			}, 600000);
 		},
 		mouxan() {

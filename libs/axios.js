@@ -51,7 +51,7 @@ axios.interceptors.response.use(
 				background: true,
 				content: data.msg
 			})
-			return Promise.reject();
+			return Promise.reject(data.msg);
 		}
 	},
 	(error) => {
