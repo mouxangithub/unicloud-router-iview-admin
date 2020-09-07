@@ -13,6 +13,8 @@
   <img src='https://gitee.com/mouxangitee/unicloud-router-iview-admin/badge/fork.svg?theme=dark' alt='fork'></img>
 </a>
 
+## 扫码登录预览app示范：[安卓](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cheshi/058e01a0-f0de-11ea-8a36-ebb87efcf8c0.apk)；[IOS越狱版](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-cheshi/064d32f0-f0de-11ea-8a36-ebb87efcf8c0.ipa)；[示范uniapp项目](https://ext.dcloud.net.cn/plugin?id=2693)
+
 ## 因最近业务比较忙, 所以更新速度可能会比较慢, 作者暂未放弃更新, 感谢大家支持。
 ## 因为是个人开发, 很多时候考虑没那么周全, 所以大家如果有什么好的点子可以联系我（QQ：455171924；WX：s455171924）, 告诉我你宝贵的想法.
 
